@@ -60,7 +60,7 @@ export default createContainerComponent("MultipleLogicEntitiesExample", {
   //  ...component.behs.messageLoader.mapToRenderData()
   // })
 
-  // todo???
-  // sryle: styLeObject; // optional
+  // todo?
+  // style: styLeObject; // optional
   // styleWrapper: (style, renderData)=>{ ...style calculate... return style} //optional
 });
