@@ -18,7 +18,6 @@ https://codesandbox.io/s/entity-component-behaviour-approach-in-react-zo2yy
 
 ![](content/data-flow.png)
 ___
-
  
 This document also provides examples of solutions for some react problems and some useful features, such as :
 - creating `Container` for logical blocks (`Description` paragraph 1-3)
@@ -27,8 +26,8 @@ This document also provides examples of solutions for some react problems and so
 - removing/adding logical blocks in runtime (`Description` paragraph 8)
 - props grouping by logical blocks (`Description` paragraph 12)
 - code reuse like Vue directives - adding logical block through prop in JSX (`Description` paragraph 12-13)
- 
-##Description
+
+## Description
 **1.** I created the `ContainerComponent` class which inherits from `React.Component` that to change the behavior of all future custom components.   
 ```jsx
 ContainerComponent extends React.Component
