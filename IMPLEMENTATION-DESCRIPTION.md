@@ -13,14 +13,20 @@ https://codesandbox.io/s/entity-component-behaviour-approach-in-react-zo2yy
 - `Config` (configurable object). Used in `Container` components; 
 - `Behaviour` logical block;
 - `render` function.
+
+**Data flow diagram:**
+
+ ![](content/component-behaviour data flow.png)
+___
+
  
 This document also provides examples of solutions for some react problems and some useful features, such as :
-- creating `Container` for logical blocks (paragraph 1-3)
-- moving `render` function outside component (paragraph 6)
-- creating logical blocks (paragraph 9-11)
-- removing/adding logical blocks in runtime (paragraph 8)
-- props grouping by logical blocks (paragraph 12)
-- code reuse like Vue directives - adding logical block through prop in JSX (paragraph 12-13)
+- creating `Container` for logical blocks (`Description` paragraph 1-3)
+- moving `render` function outside component (`Description` paragraph 6)
+- creating logical blocks (`Description` paragraph 9-11)
+- removing/adding logical blocks in runtime (`Description` paragraph 8)
+- props grouping by logical blocks (`Description` paragraph 12)
+- code reuse like Vue directives - adding logical block through prop in JSX (`Description` paragraph 12-13)
  
 ##Description
 **1.** I created the `ContainerComponent` class which inherits from `React.Component` that to change the behavior of all future custom components.   
@@ -112,7 +118,7 @@ Struct of my behaviours:
 - name field; // name of behaviour; (editable)
 - type field; // type of behaviour; (readonly)
 - state; // getter for getting state object;
-- setStat;e // like setState in react
+- setState; // like setState in react
 - useState; // syntactic sugar for imitation useState from react hooks
 - defaultState; object
 - passedToRender; object

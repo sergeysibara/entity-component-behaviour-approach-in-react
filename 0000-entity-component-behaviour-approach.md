@@ -60,16 +60,22 @@ The main motivations:
 - Current 3rd-party components has not very good extensibility and compatibility of their functionality with each other.
 - More flexible code and better composition.
  
-**I. Motivation for “Make component a configurable container without hardcoded render function and custom logic”.**    
-1. Two sources of custom logic (component, logical block) instead of one to allow write dirty code. There is no splitting code by layers. The programmer is forced to choose where to write a logic. Even experienced developers first choose a simpler way, but not a flexible - “writing logic in component”. Next they spend time on moving logic outside of a complex component. This way is good for small components. But this way is not suitable for complex components and component libraries.
+**I. Motivations for “Make component a configurable container without hardcoded render function and custom logic”.**    
+1. Two sources of custom logic (component, logical block) instead of one to allow write dirty code. There is no splitting code by layers. The programmer is forced to choose where to write a logic. Even experienced developers first choose a simpler way, but not a flexible - “writing logic in component”. Next, in the case of a complex component, they will spend time moving logic outside the complex component. This way is good for small components. But this way is not suitable for complex components and component libraries.
 
    In React applications, it is customary to split a project structure into multiple layers (actions, store, component). At the same time, it is strange that in React is not customary to split a component logic and jsx code into 2 different layers. As a result, React has 2 different programming entities (component, custom hook) in which most responsibilities coincide.
 
-2. In my understanding the Single Responsibility Principle of SOLID need strives to reduce the number of responsibilities. The react components has too much responsibilities:
+2. In my mind the Single Responsibility Principle of SOLID need strives to reduce the number of responsibilities. The react components has too much responsibilities:
    - container for logical blocks (hooks);
    - custom logic inside component;
-   - view (JSX code);
-3. React components do not satisfy the second SOLID principle - “Open–Closed principle”. If you need to extend component then in some cases you must to change a code inside of component. For 3rd party components this is impossible.
+   - life cycle events handling;
+   - component state management;
+   - view (JSX code);   
+   
+   For simple components this is an unnecessary complication. Blind following of SOLID to complicate an application.
+   But it is useful for large systems where you need to build complex components by combining logical blocks.
+   
+3. React components do not satisfy the second SOLID principle - “Open–Closed principle”. If you need to extend component then in some cases you must to change a code inside of component. For 3rd-party components this is impossible.
 4. If move the render function outside of component then one render function can be used in several components even if the props are different (you can transform props before passing to render).
 5. More clean code in render function. All used variables are visible in render function parameters:   
 ```render: ({ count, setCount }) => {...}```
