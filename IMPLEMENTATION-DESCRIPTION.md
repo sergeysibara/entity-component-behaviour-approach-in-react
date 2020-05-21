@@ -16,7 +16,7 @@ https://codesandbox.io/s/entity-component-behaviour-approach-in-react-zo2yy
 
 **Data flow diagram:**
 
- ![](content/component-behaviour data flow.png)
+![](content/data-flow.png)
 ___
 
  
