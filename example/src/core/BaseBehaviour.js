@@ -1,10 +1,8 @@
-import stringUtils from "./stringUtils";
+import lowerFirst from "lodash/lowerFirst";
 
 export default class BaseBehaviour {
   type = Object.getPrototypeOf(this).constructor.name;
-  name = stringUtils.firstToLowerCase(
-    Object.getPrototypeOf(this).constructor.name
-  );
+  name = lowerFirst(Object.getPrototypeOf(this).constructor.name);
 
   // passedToRender - data and functions that will be passed in mapToRenderData function
   passedToRender = {};

@@ -1,5 +1,5 @@
 import BaseBehaviour from "../../core/BaseBehaviour";
-import otherUtils from "../../utils/otherUtils";
+import cloneDeep from "lodash/cloneDeep";
 
 export default class ModelBinding extends BaseBehaviour {
   passedToRender = {
@@ -9,7 +9,7 @@ export default class ModelBinding extends BaseBehaviour {
   init(component, props, initData) {
     super.init(component, props, initData);
 
-    const model = otherUtils.deepClone(this.ownProps || initData.model);
+    const model = cloneDeep(this.ownProps || initData.model);
     this.defaultState = model;
 
     Object.entries(model).forEach(([fieldName, value]) => {
