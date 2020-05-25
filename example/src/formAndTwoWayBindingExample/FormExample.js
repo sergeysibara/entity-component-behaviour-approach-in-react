@@ -49,7 +49,10 @@ const FormContent = createContainerComponent("FormContent", {
       behaviour: ModelBinding,
       initData: {
         model: { firstName: "", lastName: "", confirm: true }
-      }
+      },
+      // wrapRenderData: (behRenderData)=>{
+      //   return {...behRenderData, test: 123};
+      // }
     },
     { behaviour: FormExampleBehaviour }
   ],

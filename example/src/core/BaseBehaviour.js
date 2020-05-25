@@ -17,8 +17,6 @@ export default class BaseBehaviour {
     if (initData.defaultState) {
       this.defaultState = initData.defaultState;
     }
-
-    this.wrapRenderData = initData.wrapRenderData;
   }
 
   get ownProps() {
@@ -67,17 +65,11 @@ export default class BaseBehaviour {
   }
 
   // Return data and functions that will be passed in mapToRenderData of component and render functions.
-  // wrapRenderData can be used for formatting data before passing in component
   mapToRenderData() {
-    const renderData = {
+    return {
       ...this.passedToRender,
       ...this.state
     };
-
-    if (this.wrapRenderData) {
-      return this.wrapRenderData(renderData);
-    }
-    return renderData;
   }
 
   behaviourWillRemoved() {

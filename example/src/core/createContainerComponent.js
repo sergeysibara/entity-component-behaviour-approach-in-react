@@ -8,13 +8,24 @@ const LifeCycle = {
   BEHAVIOUR_DID_UPDATE: "componentDidUpdate",
   COMPONENT_WILL_UNMOUNT: "componentWillUnmount",
   BEHAVIOUR_WILL_REMOVED: "behaviourWillRemoved"
+
+  // unused in the examples:
+  // static getDerivedStateFromProps()
+  // shouldComponentUpdate()
+  // getSnapshotBeforeUpdate()
+  // static getDerivedStateFromError()
+  // componentDidCatch()
 };
 
 export class ContainerComponent extends React.Component {
+  // List with all behaviours of component
   behaviourList = [];
 
   // Object with all behaviours of component. For simplify access to behaviour by name
   behs = {};
+
+  // Object with pairs: [behaviourName]: beParamsObject
+  behsParams = {};
 
   constructor(props, context, config) {
     super(props, context);
@@ -23,7 +34,7 @@ export class ContainerComponent extends React.Component {
 
     // create behaviours
     behParams.forEach(item => {
-      this.addBehaviour(item.behaviour, props, item.initData);
+      this.addBehaviour(item.behaviour, props, item.initData, item.wrapRenderData);
     });
 
     this.callMethodInAllBehaviours(LifeCycle.COMPONENT_DID_INITIALIZED, [
@@ -31,11 +42,12 @@ export class ContainerComponent extends React.Component {
     ]);
   }
 
-  addBehaviour(behaviour, props, initData) {
+  addBehaviour(behaviour, props, initData, wrapRenderData) {
     const newBeh = new behaviour();
     newBeh.init(this, props, initData);
     this.behaviourList.push(newBeh);
     this.behs[newBeh.name] = newBeh;
+    this.behsParams[newBeh.name] = { wrapRenderData };
     if (newBeh.behaviourAdded) {
       newBeh.behaviourAdded();
     }
@@ -50,12 +62,24 @@ export class ContainerComponent extends React.Component {
       }
       this.behaviourList.splice(foundIndex, 1);
       delete this.behs[behaviourInstance.name];
+      delete this.behsParams[behaviourInstance.name];
     } else {
       console.warn(
         `removeBehaviour error: ${behaviourInstance.name} not found`
       );
     }
   }
+
+  getBehaviourRenderData = (behaviour) => {
+    const renderData = behaviour.mapToRenderData();
+
+    // wrapRenderData can be used for formatting data before passing in component
+    const wrapRenderData = this.behsParams[behaviour.name].wrapRenderData;
+    if (wrapRenderData) {
+      return wrapRenderData(renderData);
+    }
+    return renderData;
+  };
 
   callMethodInAllBehaviours(funcName, args = []) {
     this.behaviourList.forEach(beh => {

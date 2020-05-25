@@ -2,7 +2,7 @@
 // For example: { behaviour1RenderData, behaviour2RenderData }
 const mapToIsolatedRenderDataObjects = component => {
   let retData = component.behaviourList.reduce((renderData, beh) => {
-    renderData[beh.name] = beh.mapToRenderData();
+    renderData[beh.name] = component.getBehaviourRenderData(beh);
     return renderData;
   }, {});
   return retData;
