@@ -7,7 +7,7 @@ export default class BaseBehaviour {
   // passedToRender - data and functions that will be passed in mapToRenderData function
   passedToRender = {};
 
-  //init instead constructor - for using overrided child fields at initialization
+  // instead constructor - for using overrided child fields at initialization
   init(component, props, initData = {}) {
     this.component = component;
     if (initData.name) {
@@ -42,8 +42,8 @@ export default class BaseBehaviour {
     });
   }
 
-  // syntactic sugar like useState from react hooks
-  useState(fieldName, setterFieldName, value, sendSetterToRender = false) {
+  // Syntactic sugar like useState from react hooks
+  useState(fieldName, fieldNameSetter, value, sendSetterToRender = false) {
     if (!this.defaultState) {
       this.defaultState = {};
     }
@@ -53,7 +53,7 @@ export default class BaseBehaviour {
       this.defaultState = { ...this.defaultState, ...value };
     }
 
-    const setterParentField = sendSetterToRender ? this.passedToRender : this;
+    const parentFieldSetter = sendSetterToRender ? this.passedToRender : this;
     const setter = newValue => {
       if (fieldName) {
         this.setState({ [fieldName]: newValue });
@@ -61,18 +61,18 @@ export default class BaseBehaviour {
         this.setState({ ...this.state, ...newValue });
       }
     };
-    setterParentField[setterFieldName] = setter;
+    parentFieldSetter[fieldNameSetter] = setter;
   }
 
   // Return data and functions that will be passed in mapToRenderData of component and render functions.
   mapToRenderData() {
     return {
+      ...this.state,
       ...this.passedToRender,
-      ...this.state
     };
   }
 
   behaviourWillRemoved() {
-    this.setState(undefined); // clean state (it is need due to state emulation with using component state)
+    this.setState(undefined); // clearing state (it is need due to the state emulation with using component state)
   }
 }

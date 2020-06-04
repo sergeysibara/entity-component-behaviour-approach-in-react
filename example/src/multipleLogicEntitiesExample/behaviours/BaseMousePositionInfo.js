@@ -6,14 +6,14 @@ import BaseBehaviour from "../../core/BaseBehaviour";
 
 export default class BaseMousePositionInfo extends BaseBehaviour {
   name = "mousePositionInfo";
-  mouseEvent = "";
+  mouseEvent = ""; // to set in child classes
   dummy = this.useState(null, "setPosition", { x: 0, y: 0 });
   //defaultState = { x: 0, y: 0 };
 
-  update = e => {
+  update = mouseEvent => {
     this.setPosition({
-      x: e.pageX,
-      y: e.pageY
+      x: mouseEvent.pageX,
+      y: mouseEvent.pageY
     });
   };
 

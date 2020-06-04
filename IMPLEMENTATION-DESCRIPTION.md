@@ -10,7 +10,7 @@ https://codesandbox.io/s/entity-component-behaviour-approach-in-react-zo2yy
  
 **Main programming entities:**
 - `Container` component;
-- `Config` (configurable object). Used in `Container` components; 
+- `config` (configurable object). Used in `Container` components; 
 - `Behaviour` logical block;
 - `render` function.
 
@@ -119,11 +119,10 @@ Struct of my behaviours:
 - state; // getter for getting state object;
 - setState; // like setState in react
 - useState; // syntactic sugar for imitation useState from react hooks
-- defaultState; object
-- passedToRender; object
+- defaultState object;
+- passedToRender object;
 - ownProps getter; // to get grouped props only for current behavior
 - mapToRenderData; // to pass data to render function of component 
-- wrapRenderData; // for transform data after mapToRenderData and before passing to render function of component 
 
 I created the `BaseBehaviour` class. Its functionality is like react class-based react component.   
 It has the same lifecycle methods and it has his own state. But it has several differences:
@@ -232,30 +231,26 @@ Directive - this is just a way to use a logical block through props. No need to 
 Example from `BaseBehaviour.js`:
 ```jsx 
  mapToRenderData() {
-   const renderData = {
+   return {
      ...this.passedToRender,
      ...this.state
    };
- 
-   if (this.wrapRenderData) {
-     return this.wrapRenderData(renderData);
-   }
-   return renderData;
  }
 ```
 
 **15.** `wrapRenderData`   
-The `wrapRenderData` function can be passed from the component `config` to the `init` method.   
+The `wrapRenderData` function can be used for data transform from concrete behaviour. 
+Called after `mapToRenderData` of behaviour inside `mapToRenderData` of component
 ```jsx 
 const FormContent = createContainerComponent("FormContent", {
  behaviours: [
    {
      behaviour: FormBeh,
-     wrapRenderData: (data)=> {
-        return {firstName: data.first_name; lastName: data.last_name }; // example of data formatting for using in render function
+     wrapRenderData: (data) => {
+        return { firstName: data.first_name; lastName: data.last_name }; // example of data formatting for using in render function
    },
  ],
- render: ({firstName, lastName})= … 
+ render: ({firstName, lastName}) = … 
 });
 ```
 `wrapRenderData` used if you need to perform some additional data formatting before passing it to the component. Usually, just overriding the `mapToRenderData` method in the behavior is enough. But if you want to make a common function for different behaviours and different components, you can to use `wrapRenderData`.

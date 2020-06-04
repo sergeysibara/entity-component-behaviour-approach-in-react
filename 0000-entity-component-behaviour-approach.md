@@ -58,7 +58,7 @@ A few limitations and possibilities will be added to react components and hooks:
 # Motivation
 The main motivations:
 - Current 3rd-party components has not very good extensibility and compatibility of their functionality with each other.
-- More flexible code and better composition.
+- More flexible code and better composition. You will can to change logic of ready component without changing view code.
  
 **I. Motivations for “Make component a configurable container without hardcoded render function and custom logic”.**    
 1. Two sources of custom logic (component, logical block) instead of one to allow write dirty code. There is no splitting code by layers. The programmer is forced to choose where to write a logic. Even experienced developers first choose a simpler way, but not a flexible - “writing logic in component”. Next, in the case of a complex component, they will spend time moving logic outside the complex component. This way is good for small components. But this way is not suitable for complex components and component libraries.

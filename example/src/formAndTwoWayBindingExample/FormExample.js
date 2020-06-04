@@ -4,6 +4,11 @@ import ModelBinding from "./behaviours/ModelBinding";
 import Checkbox from "./Checkbox";
 import FormExampleBehaviour from "./behaviours/FormExampleBehaviour";
 
+/** Example of next features:
+ * two way binding;
+ * using 'wrapRenderData' function in config; (in commented out code)
+ */
+
 const formContentRender = ({
                              firstName,
                              lastName,
@@ -18,8 +23,8 @@ const formContentRender = ({
         {`First Name (value = ${firstName}) `}
         <br />
         <input type="text" {...bindModel.firstName} />
-        {/* "bindModel.firstName" return an object { value, name, onChange} */}
-        {/* using multiple onChange handlers: */}
+        {/* "bindModel.firstName" return { value, name, onChange} object */}
+        {/* Example of using multiple onChange handlers: */}
         {/* <input {...bind.text} onChange={(e)=>{bind.text.onChange(e); customOnChange(e);} />*/}
       </label>
       <br />
@@ -50,6 +55,7 @@ const FormContent = createContainerComponent("FormContent", {
       initData: {
         model: { firstName: "", lastName: "", confirm: true }
       },
+      // WrapRenderData can be used for formatting data before passing in component.
       // wrapRenderData: (behRenderData)=>{
       //   return {...behRenderData, test: 123};
       // }

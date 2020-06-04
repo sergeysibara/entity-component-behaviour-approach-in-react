@@ -24,7 +24,7 @@ export class ContainerComponent extends React.Component {
   // Object with all behaviours of component. For simplify access to behaviour by name
   behs = {};
 
-  // Object with pairs: [behaviourName]: beParamsObject
+  // Object with pairs: [behaviourName]: behParamsObject
   behsParams = {};
 
   constructor(props, context, config) {
@@ -72,8 +72,6 @@ export class ContainerComponent extends React.Component {
 
   getBehaviourRenderData = (behaviour) => {
     const renderData = behaviour.mapToRenderData();
-
-    // wrapRenderData can be used for formatting data before passing in component
     const wrapRenderData = this.behsParams[behaviour.name].wrapRenderData;
     if (wrapRenderData) {
       return wrapRenderData(renderData);

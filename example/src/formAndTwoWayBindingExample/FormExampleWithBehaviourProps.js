@@ -6,8 +6,9 @@ import FormExampleBehaviour from "./behaviours/FormExampleBehaviour";
 
 /** Example of next features:
  * two way binding;
- * separated behaviour props (see ownProps in BaseBehaviour);
- * common render function for two components.
+ * separated behaviour props ('bh-modelBinding'. See ownProps in BaseBehaviour);
+ * using a common render function 'formContentRender' for multiple components;
+ * using behaviours like vue directives. (in commented out code)
  */
 
 const FormContentWithoutModel = createContainerComponent(
@@ -28,6 +29,8 @@ const FormExampleWithBehaviourProps = () => (
     </h3>
     <FormContentWithoutModel
       bh-modelBinding={{ firstName: "", lastName: "", confirm: true }}
+      // Example of using behaviours like vue directives (instead 'behaviours' declaration in config object of component):
+      // defaultBehaviours={[{behaviour: ModelBinding}, {behaviour: FormExampleBehaviour}]}
     />
   </>
 );

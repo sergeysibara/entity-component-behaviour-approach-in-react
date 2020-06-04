@@ -3,7 +3,7 @@ import createContainerComponent from "../core/createContainerComponent";
 import BaseBehaviour from "../core/BaseBehaviour";
 
 class CounterBehaviour extends BaseBehaviour {
-  // only for call useState. dummy not used nowhere.
+  // Only for call useState. The 'dummy' not used nowhere.
   dummy = this.useState("count", "setCount", 0, true);
 }
 

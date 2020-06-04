@@ -7,7 +7,8 @@ import MessageLoader from "./behaviours/MessageLoader";
 
 /** Example of next features:
  * several behaviours in one component;
- * replace (add/remove) behaviours;
+ * replacing (add/remove) behaviours;
+ * using in-box and custom mapToRenderData
  */
 
 const render = ({
@@ -51,16 +52,15 @@ export default createContainerComponent("MultipleLogicEntitiesExample", {
   render: render
 
   // Example of custom mapToRenderData.
-  // Call before render.
-  // mapToRenderData: mapToMixedRenderData, // can use this row instead custom.
-  //   Or you can missed this rows because mapToMixedRenderData used by default.
   // mapToRenderData: component => ({
   //  ...component.behs.mousePositionInfoManager.mapToRenderData(),
   //  ...component.behs.mousePositionInfo.mapToRenderData(),
   //  ...component.behs.messageLoader.mapToRenderData()
   // })
 
+  // mapToRenderData: mapToMixedRenderData, // can use this row instead custom.
+  // Or you can missed this rows because mapToMixedRenderData used by default.
+
   // todo?
-  // style: styLeObject; // optional
-  // styleWrapper: (style, renderData)=>{ ...style calculate... return style} //optional
+  // style: styleObject; // optional
 });
