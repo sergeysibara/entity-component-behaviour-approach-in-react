@@ -3,7 +3,8 @@ I do not propose a concrete implementation. You can to implement it using object
 Here is a description of my implementation with using class-based React API.
  
 Link to my implementation with examples using the Entity Component-Behaviour approach:   
-https://codesandbox.io/s/entity-component-behaviour-approach-in-react-zo2yy
+https://codesandbox.io/s/entity-component-behaviour-approach-in-react-zo2yy   
+[Github: source code](https://github.com/sergeysibara/entity-component-behaviour-approach-in-react/tree/master/example)
  
 **All code of implementation is inside the `core` folder.**   
 **Other folders contain only examples.**
@@ -16,7 +17,7 @@ https://codesandbox.io/s/entity-component-behaviour-approach-in-react-zo2yy
 
 **Data flow diagram:**
 
-![](content/data-flow.png)
+![](https://raw.githubusercontent.com/sergeysibara/entity-component-behaviour-approach-in-react/master/content/data-flow.png)
 ___
  
 This document also provides examples of solutions for some react problems and some useful features, such as :
@@ -266,7 +267,6 @@ createContainerComponent("ConcreteComponent", {
      initData: { // any custom data that will passed to init method of a behaviour.
        name: “MyBehaviourName”, // name for this behaviour. (optional)
        defaultState: {}, // data that will passed in defaultState of Behaviour. (optional)
-       wrapRenderData: wrapperFunction; // (optional)
        //any custom data
      }
    },
