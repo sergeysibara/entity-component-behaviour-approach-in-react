@@ -8,7 +8,7 @@ export default class BaseBehaviour {
   passedToRender = {};
 
   // instead constructor - for using overrided child fields at initialization
-  init(component, props, initData = {}) {
+  init(component, props, initData = {}, config) {
     this.component = component;
     if (initData.name) {
       this.name = initData.name;
@@ -16,6 +16,12 @@ export default class BaseBehaviour {
 
     if (initData.defaultState) {
       this.defaultState = initData.defaultState;
+    }
+
+    if (config && config.defaultStateConfig) {
+      config.defaultStateConfig.forEach(pair => {
+        this.useState(pair);
+      })
     }
   }
 
@@ -42,27 +48,31 @@ export default class BaseBehaviour {
     });
   }
 
-  // Syntactic sugar like useState from react hooks
-  useState(fieldName, fieldNameSetter, value, sendSetterToRender = false) {
+  // Syntactic sugar like useState from react hooks (optional)
+  useState = (fieldSetterPair, sendSetterToRender = true) => {
+    if (!fieldSetterPair) {
+      console.error('useState error: fieldSetterPair is empty')
+    }
+
     if (!this.defaultState) {
       this.defaultState = {};
     }
-    if (fieldName) {
-      this.defaultState[fieldName] = value;
-    } else {
-      this.defaultState = { ...this.defaultState, ...value };
-    }
+
+    const keysOffFieldSetterPair = Object.keys(fieldSetterPair);
+    const fieldName = keysOffFieldSetterPair[0];
+    const fieldSetterName = keysOffFieldSetterPair[1];
+    this.defaultState[fieldName] = fieldSetterPair[fieldName];
 
     const parentFieldSetter = sendSetterToRender ? this.passedToRender : this;
-    const setter = newValue => {
+    const setter = (newValue) => {
       if (fieldName) {
         this.setState({ [fieldName]: newValue });
       } else {
         this.setState({ ...this.state, ...newValue });
       }
     };
-    parentFieldSetter[fieldNameSetter] = setter;
-  }
+    parentFieldSetter[fieldSetterName] = setter;
+  };
 
   // Return data and functions that will be passed in mapToRenderData of component and render functions.
   mapToRenderData() {

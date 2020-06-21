@@ -2,16 +2,14 @@ import React from "react";
 import createContainerComponent from "../core/createContainerComponent";
 import BaseBehaviour from "../core/BaseBehaviour";
 
-class CounterBehaviour extends BaseBehaviour {
-  // Only for call useState. The 'dummy' not used nowhere.
-  dummy = this.useState({ count: 0, setCount: null });
-}
-
-export default createContainerComponent("CounterExample", {
-  behaviours: [{ behaviour: CounterBehaviour }],
+export default createContainerComponent("CounterShortestBehaviour", {
+  behaviours: [
+    { behaviour: BaseBehaviour,
+      defaultStateConfig: [{ count: 0, setCount: null}],
+    }],
   render: ({ count, setCount }) => (
     <>
-      <h3>Counter Example</h3>
+      <h3>Shortest Example</h3>
       <p>You clicked {count} times</p>
       <button onClick={() => setCount(count + 1)}>Click me</button>
     </>

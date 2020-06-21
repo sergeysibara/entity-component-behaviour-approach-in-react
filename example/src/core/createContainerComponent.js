@@ -26,6 +26,7 @@ export class ContainerComponent extends React.Component {
 
   // Object with pairs: [behaviourName]: behParamsObject
   behsParams = {};
+  wrapRenderData;
 
   constructor(props, context, config) {
     super(props, context);
@@ -33,8 +34,9 @@ export class ContainerComponent extends React.Component {
     const behParams = props.defaultBehaviours || config.behaviours || [];
 
     // create behaviours
-    behParams.forEach(item => {
-      this.addBehaviour(item.behaviour, props, item.initData, item.wrapRenderData);
+    behParams.forEach(oneBehParams => {
+      const { behaviour, name, initData, ...passedBehParams } = oneBehParams;
+      this.addBehaviour(oneBehParams.behaviour, props, oneBehParams.initData, passedBehParams);
     });
 
     this.callMethodInAllBehaviours(LifeCycle.COMPONENT_DID_INITIALIZED, [
@@ -42,12 +44,12 @@ export class ContainerComponent extends React.Component {
     ]);
   }
 
-  addBehaviour(behaviour, props, initData, wrapRenderData) {
+  addBehaviour(behaviour, props, initData, behaviourParams = {}) {
     const newBeh = new behaviour();
-    newBeh.init(this, props, initData);
+    newBeh.init(this, props, initData, behaviourParams);
     this.behaviourList.push(newBeh);
     this.behs[newBeh.name] = newBeh;
-    this.behsParams[newBeh.name] = { wrapRenderData };
+    this.behsParams[newBeh.name] = behaviourParams;
     if (newBeh.behaviourAdded) {
       newBeh.behaviourAdded();
     }

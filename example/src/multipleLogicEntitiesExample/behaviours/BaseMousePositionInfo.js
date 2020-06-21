@@ -7,8 +7,8 @@ import BaseBehaviour from "../../core/BaseBehaviour";
 export default class BaseMousePositionInfo extends BaseBehaviour {
   name = "mousePositionInfo";
   mouseEvent = ""; // to set in child classes
-  dummy = this.useState(null, "setPosition", { x: 0, y: 0 });
-  //defaultState = { x: 0, y: 0 };
+  dummy = this.useState({ position: { x: 0, y: 0 }, setPosition: null }, false);
+  // defaultState = { position: { x: 0, y: 0 }};
 
   update = mouseEvent => {
     this.setPosition({
@@ -25,4 +25,10 @@ export default class BaseMousePositionInfo extends BaseBehaviour {
     super.behaviourWillRemoved();
     window.removeEventListener(this.mouseEvent, this.update);
   }
+
+  mapToRenderData() {
+    return {
+      ...this.state.position,
+      ...this.passedToRender,
+    };  }
 }
