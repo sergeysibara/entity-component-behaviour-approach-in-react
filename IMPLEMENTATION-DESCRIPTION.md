@@ -29,22 +29,22 @@ This document also provides examples of solutions for some react problems and so
 - code reuse like Vue directives - adding logical block through prop in JSX (`Description` paragraph 12-13)
 
 ## Description
-**1.** I created the `ContainerComponent` class which inherits from `React.Component` that to change the behavior of all future custom components.   
+##### **1.** I created the `ContainerComponent` class which inherits from `React.Component` that to change the behavior of all future custom components.   
 ```jsx
 ContainerComponent extends React.Component
 ```
 
-**2.** To avoid writing excess code (excess inheritance code and constructor code) I made a function to create custom components - `createContainerComponent`.
+##### **2.** To avoid writing excess code (excess inheritance code and constructor code) I made a function to create custom components - `createContainerComponent`.
 ```jsx
 const MyComponent = createContainerComponent(‘MyComponent’, config);
 ```
 
-**3.** All necessary component parts are set in `config` object.
+##### **3.** All necessary component parts are set in `config` object.
 
-**4.** For to write custom logic like custom react hooks used `Behaviour` objects.
+##### **4.** For to write custom logic like custom react hooks used `Behaviour` objects.
 Each container has own Behaviors list.
 
-**5.** Container send lifecycle function calls and their arguments to all own behaviors.   
+##### **5.** Container send lifecycle function calls and their arguments to all own behaviors.   
 Example from `createContainerComponent.js`:
 ```jsx
  componentDidMount() {
@@ -60,7 +60,7 @@ Example from `createContainerComponent.js`:
  };
 ```
 
-**6.** I overrided render method in `ContainerComponent` base class.   
+##### **6.** I overrided render method in `ContainerComponent` base class.   
 Shortened example from `createContainerComponent.js`:
 ```jsx
  render() {
@@ -74,7 +74,7 @@ Shortened example from `createContainerComponent.js`:
 This allowed move render outside a component and added ability to replace `render` at runtime.   
 `mapToRenderData` gives a programmer control over the data before passing data to `render` function.
  
-**7.** The above steps allowed to change the component structure making it more flexible.
+##### **7.** The above steps allowed to change the component structure making it more flexible.
  Example:
  ```jsx
 const counterRender = ({ count, setCount }) => (
@@ -100,14 +100,14 @@ const counterRender = ({ count, setCount }) => (
   
  All data used in the render function is passed through the function parameters.
 
-**8.** I added next methods to the `ContainerComponent` base class:   
+##### **8.** I added next methods to the `ContainerComponent` base class:   
 `addBehaviour(behaviour, props, initData)`  
 `removeBehaviour(behaviourInstance)`
 
 They allow to add and to remove behaviors in runtime.   
 Now a programmer can to change almost any part of a ready component including 3rd-party components.
 
-**9.** Behaviours   
+##### **9.** Behaviours   
 Using behaviours like using mixins.   
 Unlike mixins, all data and methods of behaviors are isolated from the component and from each other.   
 But they can refer to each other through a component reference and a references to all component behaviours.
@@ -144,11 +144,11 @@ passedToRender: {
 }
 ```
 
-**10.** `init` method    
+##### **10.** `init` method    
 The motivation for using init instead of the constructor:  
 In parent constructor `this` stores data and methods defined only in the parent class. We cannot get overridden child fields in parent constructor. Because of this, in each child need to override the constructor for proper operation, that is inconvenient. Init calls after component creating, so `this` in `init` contains overridden fields and methods.
 
-**11.** Every behaviour has own state    
+##### **11.** Every behaviour has own state    
 I just imitate separated states. In fact the component stores the states (common state) of all own behaviors.
 ```jsx
 setState(stateObject) {
@@ -163,7 +163,7 @@ setState(stateObject) {
 I think it is right that the state is stored in the component. This feature allows a behaviours group to has a common state.
 
 
-**12.** `ownProps` to get only props of current behaviour   
+##### **12.** `ownProps` to get only props of current behaviour   
 In `BaseBehaviour` class I made a small solution for grouping props by behaviours.
 ```jsx
 get ownProps() {
@@ -205,7 +205,7 @@ const MyComponent = props => {
 <MyComponent h-MyCustomHook={{ a: 1, b: 2 }} />
 ```
 
-**13.** Adding default behaviours through props.   
+##### **13.** Adding default behaviours through props.   
 Example:
 ```jsx
 <CounterComponent defaultBehaviours={[{behaviour: CounterBehaviour, {count: 0} ]}>
@@ -228,7 +228,7 @@ Directives are a very useful feature that allows you optionally to add logical b
 Directive - this is just a way to use a logical block through props. No need to invent a new programming entity, as done in Vue. In Vue this is an over complication.
 
 
-**14.** Each behavior contains the `mapToRenderData` method for passing fields and methods of `passedToRender` and `state` objects to the `render` function in component.   
+##### **14.** Each behavior contains the `mapToRenderData` method for passing fields and methods of `passedToRender` and `state` objects to the `render` function in component.   
 Example from `BaseBehaviour.js`:
 ```jsx 
  mapToRenderData() {
@@ -239,7 +239,7 @@ Example from `BaseBehaviour.js`:
  }
 ```
 
-**15.** `wrapRenderData`   
+##### **15.** `wrapRenderData`   
 The `wrapRenderData` function can be used for data transform from concrete behaviour. 
 Called after `mapToRenderData` of behaviour inside `mapToRenderData` of component
 ```jsx 
@@ -256,7 +256,7 @@ const FormContent = createContainerComponent("FormContent", {
 ```
 `wrapRenderData` used if you need to perform some additional data formatting before passing it to the component. Usually, just overriding the `mapToRenderData` method in the behavior is enough. But if you want to make a common function for different behaviours and different components, you can to use `wrapRenderData`.
 
-**16.** Parameters of the `init` method of a `behaviour`. Passing initialization data into `behaviour`. Description of the behaviors options in the `config` object of the component.
+##### **16.** Parameters of the `init` method of a `behaviour`. Passing initialization data into `behaviour`. Description of the behaviors options in the `config` object of the component.
 
 Description 'initData' fields:  
 ```jsx 
@@ -278,7 +278,7 @@ createContainerComponent("ConcreteComponent", {
 init(component, props, initData) { … };
 ```
 
-**17.** `mapToRenderData` option in `config` object of component.   
+##### **17.** `mapToRenderData` option in `config` object of component.   
 The `mapToRenderData` is like to 'optionMergeStrategies' в Vue:   
 https://vuejs.org/v2/guide/mixins.html#Custom-Option-Merge-Strategies
  

@@ -50,13 +50,13 @@ can be implemented variant with creating class-based component:
 const CounterComponent = createContainer(‘CounterComponent’, configObject);  
 ```
 
-2 Variant with hooks (theoretical). Only for my second suggestion and partially for first suggestion.
+2.1. Variant with hooks (theoretical). Only for my second suggestion and partially for first suggestion.
 A few limitations and possibilities will be added to react components and hooks:
    - component can use only custom hooks and jsx code; 
    - only custom hooks can use any hooks;
    - custom hooks can add or remove another custom hooks; 
    
-3 Variant for functional components (theoretical. Not sure that this is possible). With adding custom properties to component function.
+3.1. Variant for functional components (theoretical. Not sure that this is possible). With adding custom properties to component function.
 ```jsx
 class CounterBehaviour extend BaseBehaviour {
   defaultState: { count: 0 }
