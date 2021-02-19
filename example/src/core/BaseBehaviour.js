@@ -17,12 +17,6 @@ export default class BaseBehaviour {
     if (initData.defaultState) {
       this.defaultState = initData.defaultState;
     }
-
-    if (config && config.defaultStateConfig) {
-      config.defaultStateConfig.forEach(pair => {
-        this.useState(pair);
-      })
-    }
   }
 
   get ownProps() {
@@ -47,32 +41,6 @@ export default class BaseBehaviour {
       };
     });
   }
-
-  // Syntactic sugar like useState from react hooks (optional)
-  useState = (fieldSetterPair, sendSetterToRender = true) => {
-    if (!fieldSetterPair) {
-      console.error('useState error: fieldSetterPair is empty')
-    }
-
-    if (!this.defaultState) {
-      this.defaultState = {};
-    }
-
-    const keysOffFieldSetterPair = Object.keys(fieldSetterPair);
-    const fieldName = keysOffFieldSetterPair[0];
-    const fieldSetterName = keysOffFieldSetterPair[1];
-    this.defaultState[fieldName] = fieldSetterPair[fieldName];
-
-    const parentFieldSetter = sendSetterToRender ? this.passedToRender : this;
-    const setter = (newValue) => {
-      if (fieldName) {
-        this.setState({ [fieldName]: newValue });
-      } else {
-        this.setState({ ...this.state, ...newValue });
-      }
-    };
-    parentFieldSetter[fieldSetterName] = setter;
-  };
 
   // Return data and functions that will be passed in mapToRenderData of component and render functions.
   mapToRenderData() {

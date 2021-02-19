@@ -119,7 +119,6 @@ Struct of my behaviours:
 - type field; // type of behaviour; (readonly)
 - state; // getter for getting state object;
 - setState; // like setState in react
-- useState; // syntactic sugar for imitation useState from react hooks
 - defaultState object;
 - passedToRender object;
 - ownProps getter; // to get grouped props only for current behavior

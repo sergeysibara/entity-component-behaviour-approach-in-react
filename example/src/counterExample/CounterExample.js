@@ -3,8 +3,12 @@ import createContainerComponent from "../core/createContainerComponent";
 import BaseBehaviour from "../core/BaseBehaviour";
 
 class CounterBehaviour extends BaseBehaviour {
-  // Only for call useState. The 'dummy' not used nowhere.
-  dummy = this.useState({ count: 0, setCount: null });
+  defaultState = { count: 0 };
+  passedToRender = {
+    setCount: value => {
+      this.setState({ count: value });
+    }
+  };
 }
 
 export default createContainerComponent("CounterExample", {
