@@ -5,17 +5,20 @@ import CounterExample from "./counterExample/CounterExample";
 import createContainerComponent from "./core/createContainerComponent";
 import FormExample from "./formAndTwoWayBindingExample/FormExample";
 import FormExampleWithBehaviourProps from "./formAndTwoWayBindingExample/FormExampleWithBehaviourProps";
+import HooksCounterExample
+  from './hooksCounterExample/CounterExample';
 
 const App = createContainerComponent("App", {
   render: () => (
     <>
-      <MultipleLogicEntitiesExample />
-      <hr />
-      <CounterExample />
-      <hr />
-      <FormExample />
-      <hr />
-      <FormExampleWithBehaviourProps />
+      <HooksCounterExample/>
+      {/*<MultipleLogicEntitiesExample />*/}
+      {/*<hr />*/}
+      {/*<CounterExample />*/}
+      {/*<hr />*/}
+      {/*<FormExample />*/}
+      {/*<hr />*/}
+      {/*<FormExampleWithBehaviourProps />*/}
     </>
   )
 });

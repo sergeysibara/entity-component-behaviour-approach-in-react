@@ -1,5 +1,6 @@
 import lowerFirst from "lodash/lowerFirst";
 
+//todo rename component to container
 export default class BaseBehaviour {
   type = Object.getPrototypeOf(this).constructor.name;
   name = lowerFirst(Object.getPrototypeOf(this).constructor.name);
