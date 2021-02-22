@@ -6,26 +6,28 @@ import { useBehaviours } from '../core/useBehaviours';
 class CounterBehaviour extends BaseBehaviour {
   defaultState = { count: 0 };
 
-  componentWillRender() {
-    const count = this.state.count;
-    const memoizedValues = useMemo(() => {
-      return count * 2;
-    }, [count]);
-    console.log('CounterBehaviour: componentWillRender. memoizedValues=' + memoizedValues);
-  }
-
   passedToRender = {
     setCount: value => {
       this.setState({ count: value });
     }
   };
+
+  mapToRenderData() {
+    const count = this.state.count;
+    const memoizedValues = useMemo(() => {
+      return count * 2;
+    }, [count]);
+    console.log('CounterBehaviour: componentWillRender. memoizedValues=' + memoizedValues);
+
+    return super.mapToRenderData()
+  }
 }
 
 const CounterExampleWithHooks = () => {
   const renderData = useBehaviours({
     behaviours: [{ behaviour: CounterBehaviour }],
   });
-  console.log(renderData);
+
   return(
     <>
       <h3>Counter Example</h3>

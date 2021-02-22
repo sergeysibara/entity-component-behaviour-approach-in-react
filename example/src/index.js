@@ -9,16 +9,18 @@ import FormExampleWithBehaviourProps
   from './formAndTwoWayBindingExample/FormExampleWithBehaviourProps';
 import CounterExampleWithHooks
   from './counterExample/CounterExampleWithHooks';
-import CheckboxWithHooks
-  from './formAndTwoWayBindingExample/withHooks/CheckboxWithHooks';
-import Checkbox
-  from './formAndTwoWayBindingExample/Checkbox';
+import FormExampleWithHooks
+  from './formAndTwoWayBindingExample/withHooks/FormExampleWithHooks';
+
+
+// TODO: add render function to config and return render function in component
+// и проверить, что так не создаются лишние компоненты-функции-обертки
+
 const App = createContainerComponent('App', {
   render: () => (
     <>
       <CounterExampleWithHooks />
-      <CheckboxWithHooks />
-      <Checkbox />
+      <FormExampleWithHooks />
 
       {/*<MultipleLogicEntitiesExample />*/}
       {/*<hr />*/}

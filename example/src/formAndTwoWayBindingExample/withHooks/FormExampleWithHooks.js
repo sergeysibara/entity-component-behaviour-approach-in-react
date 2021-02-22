@@ -1,8 +1,8 @@
 import React from "react";
-import createContainerComponent from "../core/createContainerComponent";
-import ModelBinding from "./behaviours/ModelBinding";
+import ModelBinding from "../behaviours/ModelBinding";
 import Checkbox from "./CheckboxWithHooks";
-import FormExampleBehaviour from "./behaviours/FormExampleBehaviour";
+import FormExampleBehaviourForHooks from "./FormExampleBehaviourForHooks";
+import { useBehaviours } from '../../core/useBehaviours';
 
 /** Example of next features:
  * two way binding;
@@ -15,10 +15,11 @@ const formContentRender = ({
                              confirm,
                              bindModel,
                              handleSubmit,
-                             formData
+                             formData,
+                             formRef,
                            }) => {
   return (
-    <form onSubmit={handleSubmit} ref="form">
+    <form onSubmit={handleSubmit} ref={formRef}>
       <label>
         {`First Name (value = ${firstName}) `}
         <br />
@@ -48,29 +49,33 @@ const formContentRender = ({
   );
 };
 
-const FormContent = createContainerComponent("FormContent", {
-  behaviours: [
-    {
-      behaviour: ModelBinding,
-      initData: {
-        model: { firstName: "", lastName: "", confirm: true }
-      },
-      // WrapRenderData can be used for formatting data before passing in component.
-      // wrapRenderData: (behRenderData)=>{
-      //   return {...behRenderData, test: 123};
-      // }
+const FormContentWithHooks = (props) => {
+  const renderData = useBehaviours({
+      behaviours: [
+        {
+          behaviour: ModelBinding,
+          initData: {
+            model: { firstName: '', lastName: '', confirm: true },
+          },
+          // WrapRenderData can be used for formatting data before passing in
+          // component. wrapRenderData: (behRenderData)=>{ return
+          // {...behRenderData, test: 123}; }
+        },
+        { behaviour: FormExampleBehaviourForHooks },
+      ],
     },
-    { behaviour: FormExampleBehaviour }
-  ],
-  render: formContentRender
-});
+    props,
+  );
+  console.log(renderData);
+  return formContentRender(renderData);
+};
 
-const FormExample = () => (
+const FormExampleWithHooks = () => (
   <>
     <h3>Form and two way binding example</h3>
-    <FormContent />
+    <FormContentWithHooks />
   </>
 );
 
-export default FormExample;
+export default FormExampleWithHooks;
 export { formContentRender };

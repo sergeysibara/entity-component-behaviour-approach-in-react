@@ -23,7 +23,7 @@ const LifeCycleEvents = {
 
   // Always call at begin of render function. In
   // componentWillRender can use any hooks.
-  COMPONENT_WILL_RENDER: 'componentWillRender',
+  //COMPONENT_WILL_RENDER: 'componentWillRender',
   COMPONENT_DID_UPDATE: 'componentDidUpdate',
 
   COMPONENT_WILL_UNMOUNT: 'componentWillUnmount',
@@ -64,7 +64,7 @@ const addFieldAndMethodsToContainer = (container) => {
     [ LifeCycleEvents.COMPONENT_INITIALIZED ]: [],
     [ LifeCycleEvents.COMPONENT_DID_MOUNT ]: [],
 
-    [ LifeCycleEvents.COMPONENT_WILL_RENDER ]: [],
+    // [ LifeCycleEvents.COMPONENT_WILL_RENDER ]: [],
     [ LifeCycleEvents.COMPONENT_DID_UPDATE ]: [],
 
     [ LifeCycleEvents.COMPONENT_WILL_UNMOUNT ]: [],
@@ -145,9 +145,9 @@ const initContainer = (container, config, props) => {
 
 
 const onRender = (container) => {
-  container.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_WILL_RENDER, [
-    container.props,
-  ]);
+  // container.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_WILL_RENDER, [
+  //   container.props,
+  // ]);
   const mapToRenderData = container.config.mapToRenderData || mapToMixedRenderData;
 
   return { ...mapToRenderData(container) };
@@ -170,7 +170,7 @@ const defaultConfig = {
 function useBehaviours(config, props) {
   const ref = useRef();
   let state, setState;
-
+console.log(props)
   // get exist or create initialConfig
   const initialConfig = ref.current
     ? ref.current.config

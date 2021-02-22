@@ -3,7 +3,7 @@ import { mapToMixedRenderData } from "./mapToRenderDataStrategies";
 
 const LifeCycle = {
   COMPONENT_DID_INITIALIZED: "componentDidInitialized",
-  COMPONENT_WILL_RENDER: "componentWillRender",
+ // COMPONENT_WILL_RENDER: "componentWillRender",
   COMPONENT_DID_MOUNT: "componentDidMount",
   BEHAVIOUR_DID_UPDATE: "componentDidUpdate",
   COMPONENT_WILL_UNMOUNT: "componentWillUnmount",
@@ -103,9 +103,9 @@ export class ContainerComponent extends React.Component {
   }
 
   render() {
-    this.callMethodInAllBehaviours(LifeCycle.COMPONENT_WILL_RENDER, [
-      this.props
-    ]);
+    // this.callMethodInAllBehaviours(LifeCycle.COMPONENT_WILL_RENDER, [
+    //   this.props
+    // ]);
     const mapToRenderData = this.config.mapToRenderData || mapToMixedRenderData;
 
     const renderFunc = this.config.render
