@@ -6,11 +6,6 @@ import {
 } from 'react';
 import { mapToMixedRenderData } from './mapToRenderDataStrategies';
 
-
-// не делать render отдельно для хуков, т.к. чтобы код былл
-// одинаков как в случае простых компонентов, где только
-// JSX, так и в случае сложных
-
 // NOT RENAME standard class methods!!!
 // names of events for effect hooks check in react
 // repository For enums used google style guide -

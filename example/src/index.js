@@ -16,9 +16,10 @@ import FormExampleWithHooks
 // TODO: add render function to config and return render function in component
 // и проверить, что так не создаются лишние компоненты-функции-обертки
 
-const App = createContainerComponent('App', {
-  render: () => (
+const App = () => {
+  return (
     <>
+      <CounterExample />
       <CounterExampleWithHooks />
       <FormExampleWithHooks />
 
@@ -30,8 +31,8 @@ const App = createContainerComponent('App', {
       {/*<hr />*/}
       {/*<FormExampleWithBehaviourProps />*/}
     </>
-  ),
-});
+  );
+};
 
 const rootElement = document.getElementById('root');
 ReactDOM.render(<App />, rootElement);

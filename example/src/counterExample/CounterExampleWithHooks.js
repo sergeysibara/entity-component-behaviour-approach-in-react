@@ -8,7 +8,9 @@ class CounterBehaviour extends BaseBehaviour {
 
   passedToRender = {
     setCount: value => {
-      this.setState({ count: value });
+      this.setState(() => ({
+        count: value
+      }));
     }
   };
 

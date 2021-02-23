@@ -2,7 +2,12 @@
   "name": "entity-component-behaviour-approach-in-react",
   "version": "1.1.0",
   "description": "",
-  "keywords": [],
+  "author": "sergey sibara <sib.sergey@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "javascript"
+  ],
   "main": "src/index.js",
   "dependencies": {
     "lodash": "^4.17.20",

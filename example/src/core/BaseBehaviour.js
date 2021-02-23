@@ -34,11 +34,28 @@ export default class BaseBehaviour {
       : defaultValue;
   }
 
-  setState(stateObject) {
-    this.component.setState(() => {
+  /**
+   * callback - only for class component
+   */
+  setState(stateOrUpdater, callback) {
+    //!(typeof partialState === 'object' || typeof partialState === 'function'
+    if (typeof stateOrUpdater === 'function') {
+      const updater = stateOrUpdater;
+      this.component.setState((prevState) => {
+          return {
+            ...prevState,
+            [ this.name ]: updater(prevState[ this.name ])
+          };
+        },
+        callback);
+      return;
+    }
+
+    const newPartialState = stateOrUpdater;
+    this.component.setState((prevState) => {
       return {
-        ...this.component.state,
-        [this.name]: stateObject
+        ...prevState,
+        [this.name]: newPartialState
       };
     });
   }
