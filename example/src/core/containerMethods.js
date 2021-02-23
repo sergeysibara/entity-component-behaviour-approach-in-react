@@ -1,4 +1,5 @@
 import { LifeCycleEvents, LifeCycleEventsArray } from './LifeCycleEvents';
+import { mapToMixedRenderData } from './mapToRenderDataStrategies';
 
 const addFieldAndMethodsToContainer = (container) => {
   // List with all behaviours of component
@@ -27,6 +28,7 @@ const addFieldAndMethodsToContainer = (container) => {
   container.removeBehaviour = removeBehaviour.bind(null, container);
   container.getBehaviourRenderData = getBehaviourRenderData.bind(null, container);
   container.callMethodInAllBehaviours = callMethodInAllBehaviours.bind(null, container);
+  container.render = render.bind(null, container);
 };
 
 const addBehaviourMethodsToEventsLists = (events, newBehaviour) => {
@@ -34,7 +36,7 @@ const addBehaviourMethodsToEventsLists = (events, newBehaviour) => {
     const behaviourMethod = newBehaviour[ eventName ];
     if (behaviourMethod) {
       events[ eventName ].push({
-        id: newBehaviour,
+        id: newBehaviour.name,
         method: behaviourMethod.bind(newBehaviour),
       });
     }
@@ -43,8 +45,6 @@ const addBehaviourMethodsToEventsLists = (events, newBehaviour) => {
 
 const addBehaviour = (container, behaviour, props, initData, behaviourParams = {}) => {
   const newBeh = new behaviour();
-  newBeh.init(container, props, initData, behaviourParams);
-
   container.behaviourList.push(newBeh);
   container.behs[ newBeh.name ] = newBeh;
   container.behsParams[ newBeh.name ] = behaviourParams;
@@ -52,10 +52,12 @@ const addBehaviour = (container, behaviour, props, initData, behaviourParams = {
   // adding behaviour methods to events lists of container
   addBehaviourMethodsToEventsLists(container.events, newBeh);
 
+  newBeh.init(container, props, initData, behaviourParams);
+
   // call BEHAVIOUR_ADDED
   const behaviourAddedMethod = newBeh[ LifeCycleEvents.BEHAVIOUR_ADDED ];
   if (behaviourAddedMethod) {
-    behaviourAddedMethod();
+    behaviourAddedMethod.call(newBeh);
   }
   return newBeh;
 };
@@ -87,10 +89,10 @@ const initContainer = (container, config, props) => {
   // create behaviours
   allBehParams.forEach(oneBehParams => {
     const { behaviour, name, initData, ...passedBehParams } = oneBehParams;
-    container.addBehaviour(oneBehParams.behaviour, props, oneBehParams.initData, passedBehParams);
+    container.addBehaviour(behaviour, props, initData, passedBehParams);
   });
 
-  callMethodInAllBehaviours(container, LifeCycleEvents.COMPONENT_INITIALIZED, [
+  container.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_INITIALIZED, [
     props,
   ]);
 };
@@ -100,11 +102,26 @@ const removeBehaviour = (container, behaviourInstance) =>{
   if (foundIndex > -1) {
     const behaviourWillRemoved = behaviourInstance[LifeCycleEvents.BEHAVIOUR_WILL_REMOVED];
     if (behaviourWillRemoved) {
-      behaviourWillRemoved();
+      behaviourWillRemoved.call(behaviourInstance);
     }
+
+    // find behaviour methods in by id
+    for (const eventKey in container.events) {
+      const containerConcreteEventArray = container.events[ eventKey ];
+
+      const foundIndex = containerConcreteEventArray.findIndex(idMethodPair => idMethodPair.id === behaviourInstance.name);
+      if (foundIndex !== -1) {
+        // console.log(`remove ${behaviourInstance.name} in ${eventKey} in ${foundIndex}`)
+        // console.log(container.events);
+       // containerConcreteEventArray.splice(foundIndex, 1);
+
+      }
+    }
+
     container.behaviourList.splice(foundIndex, 1);
     delete container.behs[behaviourInstance.name];
     delete container.behsParams[behaviourInstance.name];
+
   } else {
     console.warn(
       `removeBehaviour error: ${behaviourInstance.name} not found`
@@ -112,12 +129,26 @@ const removeBehaviour = (container, behaviourInstance) =>{
   }
 };
 
+const render = (container) => {
+  // container.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_WILL_RENDER, [
+  //   container.props,
+  // ]);
+  const mapToRenderData = container.config.mapToRenderData || mapToMixedRenderData;
+
+  // variant for return function to component
+  const renderFunc = container.config.render
+    ? container.config.render
+    : ({ props }) => props?.children;
+
+  return renderFunc({
+    props: container.props,
+    ...mapToRenderData(container)
+  });
+
+  // variant for returning data to functional component
+  // return { ...mapToRenderData(container) };
+};
+
 export {
-  addFieldAndMethodsToContainer,
-  addBehaviourMethodsToEventsLists,
   initContainer,
-  getBehaviourRenderData,
-  addBehaviour,
-  callMethodInAllBehaviours,
-  removeBehaviour,
 };

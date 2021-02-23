@@ -1,11 +1,13 @@
-import React from "react";
-import ModelBinding from "../formAndTwoWayBindingExample/behaviours/ModelBinding";
-import FormExampleBehaviourForHooks from "./behaviours/FormExampleBehaviourForHooks";
+import React from 'react';
+import ModelBinding
+  from '../formAndTwoWayBindingExample/behaviours/ModelBinding';
+import FormExampleBehaviourForHooks
+  from './behaviours/FormExampleBehaviourForHooks';
 import { useBehaviours } from '../core/useBehaviours';
 import { formContentRender } from './formContentRender';
 
 const FormContentWithHooks = (props) => {
-  const renderData = useBehaviours({
+  return useBehaviours({
       behaviours: [
         {
           behaviour: ModelBinding,
@@ -15,10 +17,10 @@ const FormContentWithHooks = (props) => {
         },
         { behaviour: FormExampleBehaviourForHooks },
       ],
+      render: formContentRender,
     },
     props,
   );
-  return formContentRender(renderData);
 };
 
 const FormExampleWithHooks = () => (

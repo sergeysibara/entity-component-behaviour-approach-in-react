@@ -30,17 +30,16 @@ class CounterBehaviour extends BaseBehaviour {
 }
 
 const CounterExampleWithHooks = () => {
-  const renderData = useBehaviours({
+  return useBehaviours({
     behaviours: [{ behaviour: CounterBehaviour }],
+    render: ({ count, setCount }) => (
+      <>
+        <h3>Counter Example</h3>
+        <p>You clicked {count} times</p>
+        <button onClick={() => setCount(count + 1)}>Click me</button>
+      </>
+    ),
   });
-
-  return(
-    <>
-      <h3>Counter Example</h3>
-      <p>You clicked {renderData.count} times</p>
-      <button onClick={() => renderData.setCount(renderData.count + 1)}>Click me</button>
-    </>
-  )
 };
 
 export default CounterExampleWithHooks;

@@ -19,6 +19,6 @@ export class CheckboxAdapterToModelBinding extends BaseBehaviour {
 export default createContainerComponent("Checkbox", {
   behaviours: [{ behaviour: CheckboxAdapterToModelBinding }],
   render: ({ props, value, onChange }) => (
-    <input {...props} name="isGoing" type="checkbox" checked={value} onChange={onChange} />
+    <input {...props} type="checkbox" checked={value} onChange={onChange} />
   )
 });

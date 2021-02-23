@@ -10,7 +10,7 @@ export default class BaseMousePositionInfo extends BaseBehaviour {
   defaultState = { position: { x: 0, y: 0 }};
 
   setPosition = (pos)=> {
-    this.setState({position: pos})
+    this.setState({ position: pos });
   };
 
   update = mouseEvent => {

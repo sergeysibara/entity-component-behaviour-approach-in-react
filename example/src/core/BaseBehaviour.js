@@ -22,7 +22,7 @@ export default class BaseBehaviour {
 
   get ownProps() {
     const propBehaviourName = `bh-${this.name}`;
-    return this.component.props[propBehaviourName];
+    return this.component.props?.[propBehaviourName];
   }
 
   // Emulation separated states (every behaviour has own state)

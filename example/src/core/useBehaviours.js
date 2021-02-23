@@ -4,30 +4,12 @@ import {
   useEffect,
   useLayoutEffect,
 } from 'react';
-import { mapToMixedRenderData } from './mapToRenderDataStrategies';
 import { initContainer } from './containerMethods';
 import { LifeCycleEvents } from './LifeCycleEvents';
 
+const callLifeCycleEvents = (container) => {
+  const initialConfig = container.config;
 
-
-const onRender = (container) => {
-  // container.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_WILL_RENDER, [
-  //   container.props,
-  // ]);
-  const mapToRenderData = container.config.mapToRenderData || mapToMixedRenderData;
-
-  return { ...mapToRenderData(container) };
-  // const renderFunc = container.config.render
-  //   ? container.config.render
-  //   : ({ props }) => props?.children;
-  //
-  // return renderFunc({
-  //   props: container.props,
-  //   ...mapToRenderData(container)
-  // });
-};
-
-const callLifeCycleEvents = (container, initialConfig) => {
   if (initialConfig.useEffect === true) {
     // on mount, unmount
     useEffect(() => {
@@ -61,7 +43,7 @@ const callLifeCycleEvents = (container, initialConfig) => {
       container.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_DID_UPDATE);
     });
   }
-}
+};
 
 const defaultConfig = {
   behaviours: [],
@@ -96,9 +78,8 @@ function useBehaviours(config, props) {
   const container = ref.current;
   container.props = props;
 
-  callLifeCycleEvents(container, initialConfig);
-
-  return onRender(container);
+  callLifeCycleEvents(container);
+  return container.render();
 }
 
 export { useBehaviours }

@@ -11,7 +11,7 @@ import MessageLoader from "./behaviours/MessageLoader";
  * using in-box and custom mapToRenderData
  */
 
-const render = ({
+export const render = ({
   x,
   y,
   mousePositionOnClick,
