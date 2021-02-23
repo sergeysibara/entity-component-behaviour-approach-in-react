@@ -14,12 +14,16 @@ class CounterBehaviour extends BaseBehaviour {
     }
   };
 
+  componentWillUnmount() {
+    console.log('componentWillUnmount')
+  }
+
   mapToRenderData() {
     const count = this.state.count;
     const memoizedValues = useMemo(() => {
       return count * 2;
     }, [count]);
-    console.log('CounterBehaviour: componentWillRender. memoizedValues=' + memoizedValues);
+    // console.log('CounterBehaviour: componentWillRender. memoizedValues=' + memoizedValues);
 
     return super.mapToRenderData()
   }

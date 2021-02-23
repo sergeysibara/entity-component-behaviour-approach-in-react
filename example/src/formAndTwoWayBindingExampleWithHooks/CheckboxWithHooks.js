@@ -1,5 +1,5 @@
-import { useBehaviours } from "../../core/useBehaviours";
-import { CheckboxAdapterToModelBinding } from '../Checkbox';
+import { useBehaviours } from "../core/useBehaviours";
+import { CheckboxAdapterToModelBinding } from '../formAndTwoWayBindingExample/Checkbox';
 
 const CheckboxWithHooks = (props) => {
   const renderData = useBehaviours({
@@ -7,7 +7,6 @@ const CheckboxWithHooks = (props) => {
     },
     props,
   );
-  console.log(renderData);
   return (
     <>
       <input {...props} type="checkbox" checked={renderData.value}
