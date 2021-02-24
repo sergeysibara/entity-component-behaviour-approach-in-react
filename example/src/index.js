@@ -17,6 +17,8 @@ import FormExampleWithHooks
   from './formAndTwoWayBindingExampleWithHooks/FormExampleWithHooks';
 import FormExampleWithBehaviourPropsAndWithHooks
   from './formAndTwoWayBindingExampleWithHooks/FormExampleWithBehaviourPropsAndWithHooks';
+import LifeCycleExampleWithHooks
+  from './LifeCycleExampleWithHooks/LifeCycleExampleWithHooks';
 
 // todo add object-behaviour - only with all life-cycle methods with logs, and  with hooks in render
 const App = () => {
@@ -43,6 +45,7 @@ const App = () => {
 
       <div>
         {visible && <>
+          <LifeCycleExampleWithHooks />
           <MultipleLogicEntitiesExampleWithHooks />
           <hr />
           <CounterExampleWithHooks />

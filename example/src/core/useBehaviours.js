@@ -7,7 +7,7 @@ import {
 import { initContainer } from './containerMethods';
 import { LifeCycleEvents } from './LifeCycleEvents';
 
-const callLifeCycleEvents = (eventEmitter, initialConfig) => {
+const callLifeCycleEvents = (eventEmitter, initialConfig, isFirstRender) => {
   if (initialConfig.useEffect === true) {
     // on mount, unmount
     useEffect(() => {
@@ -20,7 +20,9 @@ const callLifeCycleEvents = (eventEmitter, initialConfig) => {
 
     // on update
     useEffect(() => {
-      eventEmitter.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_DID_UPDATE_EFFECT);
+      if (!isFirstRender) {
+        eventEmitter.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_DID_UPDATE_EFFECT);
+      }
     });
   }
 
@@ -38,7 +40,9 @@ const callLifeCycleEvents = (eventEmitter, initialConfig) => {
 
     // on update
     useLayoutEffect(() => {
-      eventEmitter.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_DID_UPDATE);
+      if (!isFirstRender) {
+        eventEmitter.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_DID_UPDATE);
+      }
     });
   }
 };
@@ -47,13 +51,14 @@ const defaultConfig = {
   behaviours: [],
   useState: true,
   useEffect: true,
-  useLayoutEffect: true,// todo set = false
+  useLayoutEffect: false,
 };
 
 function useBehaviours(config, props) {
   const ref = useRef();
   let state, setState;
-// console.log(props)
+  let isFirstRender = false;
+
   // get exist or create initialConfig
   const initialConfig = ref.current
     ? ref.current.config
@@ -69,6 +74,7 @@ function useBehaviours(config, props) {
     ref.current.state = state;
     ref.current.setState = setState;
     initContainer(ref.current, initialConfig, props);
+    isFirstRender = true;
   } else {
     ref.current.state = state;
   }
@@ -76,7 +82,7 @@ function useBehaviours(config, props) {
   const container = ref.current;
   container.props = props;
 
-  callLifeCycleEvents(container.getEventEmitter(), initialConfig);
+  callLifeCycleEvents(container.getEventEmitter(), initialConfig, isFirstRender);
   return container.render();
 }
 

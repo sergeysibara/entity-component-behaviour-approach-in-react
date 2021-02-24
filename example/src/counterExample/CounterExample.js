@@ -1,4 +1,3 @@
-import React from "react";
 import createContainerComponent from "../core/createContainerComponent";
 import BaseBehaviour from "../core/BaseBehaviour";
 

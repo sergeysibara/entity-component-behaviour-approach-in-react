@@ -1,32 +1,13 @@
-import {useMemo} from "react";
-import createContainerComponent from "../core/createContainerComponent";
 import BaseBehaviour from "../core/BaseBehaviour";
 import { useBehaviours } from '../core/useBehaviours';
 
 class CounterBehaviour extends BaseBehaviour {
   defaultState = { count: 0 };
-
   passedToRender = {
     setCount: value => {
-      this.setState(() => ({
-        count: value
-      }));
+      this.setState({ count: value });
     }
   };
-
-  componentWillUnmount() {
-    console.log('componentWillUnmount')
-  }
-
-  mapToRenderData() {
-    const count = this.state.count;
-    const memoizedValues = useMemo(() => {
-      return count * 2;
-    }, [count]);
-    // console.log('CounterBehaviour: componentWillRender. memoizedValues=' + memoizedValues);
-
-    return super.mapToRenderData()
-  }
 }
 
 const CounterExampleWithHooks = () => {

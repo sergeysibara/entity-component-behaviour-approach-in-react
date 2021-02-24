@@ -2,9 +2,9 @@
 // repository For enums used google style guide -
 // https://google.github.io/styleguide/jsguide.html#naming-enum-names
 export const LifeCycleEvents = {
-  BEHAVIOUR_ADDED: 'behaviourAdded', // old - behaviourAdded
-  COMPONENT_INITIALIZED: 'componentInitialized', // old -
-                                                 // componentDidInitialized
+  BEHAVIOUR_ADDED: 'behaviourAdded',
+  COMPONENT_INITIALIZED: 'componentInitialized',
+
   COMPONENT_DID_MOUNT: 'componentDidMount',
 
   // Always call at begin of render function. In
@@ -19,8 +19,8 @@ export const LifeCycleEvents = {
   // It is preferable for functional components.
   COMPONENT_DID_UPDATE_EFFECT: 'componentDidUpdateEffect',
 
-  COMPONENT_WILL_UNMOUNT: 'componentWillUnmount',
   BEHAVIOUR_WILL_REMOVED: 'behaviourWillRemoved',
+  COMPONENT_WILL_UNMOUNT: 'componentWillUnmount',
 
   // unused in the examples:
   // static getDerivedStateFromProps()

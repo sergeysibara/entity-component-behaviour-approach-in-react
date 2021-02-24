@@ -28,7 +28,10 @@ const addBehaviour = (container, behaviour, props, initData, behaviourParams = {
   container.behsParams[ newBeh.name ] = behaviourParams;
 
   container._eventEmitter.addBehaviourMethodsToEventsLists(newBeh);
-  newBeh.init(container, props, initData, behaviourParams);
+  if (newBeh.init) {
+    newBeh.init(container, props, initData, behaviourParams);
+  }
+
   container._eventEmitter.emitToOneBehaviour(LifeCycleEvents.BEHAVIOUR_ADDED, newBeh);
   return newBeh;
 };
