@@ -1,5 +1,7 @@
-import { LifeCycleEvents, LifeCycleEventsArray } from './LifeCycleEvents';
+import { LifeCycleEvents } from './LifeCycleEvents';
 import { mapToMixedRenderData } from './mapToRenderDataStrategies';
+import { EventEmitterWithDictionaryOfMethodArrays }
+  from './eventEmitters/EventEmitterWithDictionaryOfMethodArrays';
 
 const addFieldAndMethodsToContainer = (container) => {
   // List with all behaviours of component
@@ -12,35 +14,11 @@ const addFieldAndMethodsToContainer = (container) => {
   // Object with pairs: [behaviourName]: behParamsObject
   container.behsParams = {};
 
-  // For calls optimization:
-  // containers for storing life cycle methods of
-  // behaviours
-  // events[LifeCycleEvent][{id1, method}, {id2, method}];
-  // // id - behaviourId, method - concrete method of
-  // concrete behaviour
-  container.events = LifeCycleEventsArray.reduce((eventDictionary, current) => {
-    eventDictionary[ current ] = [];
-    return eventDictionary;
-  }, {});
-
-  // create container methods
+  // add methods
   container.addBehaviour = addBehaviour.bind(null, container);
   container.removeBehaviour = removeBehaviour.bind(null, container);
   container.getBehaviourRenderData = getBehaviourRenderData.bind(null, container);
-  container.callMethodInAllBehaviours = callMethodInAllBehaviours.bind(null, container);
   container.render = render.bind(null, container);
-};
-
-const addBehaviourMethodsToEventsLists = (events, newBehaviour) => {
-  for (const eventName of LifeCycleEventsArray) {
-    const behaviourMethod = newBehaviour[ eventName ];
-    if (behaviourMethod) {
-      events[ eventName ].push({
-        id: newBehaviour.name,
-        method: behaviourMethod.bind(newBehaviour),
-      });
-    }
-  }
 };
 
 const addBehaviour = (container, behaviour, props, initData, behaviourParams = {}) => {
@@ -49,16 +27,9 @@ const addBehaviour = (container, behaviour, props, initData, behaviourParams = {
   container.behs[ newBeh.name ] = newBeh;
   container.behsParams[ newBeh.name ] = behaviourParams;
 
-  // adding behaviour methods to events lists of container
-  addBehaviourMethodsToEventsLists(container.events, newBeh);
-
+  container._eventEmitter.addBehaviourMethodsToEventsLists(newBeh);
   newBeh.init(container, props, initData, behaviourParams);
-
-  // call BEHAVIOUR_ADDED
-  const behaviourAddedMethod = newBeh[ LifeCycleEvents.BEHAVIOUR_ADDED ];
-  if (behaviourAddedMethod) {
-    behaviourAddedMethod.call(newBeh);
-  }
+  container._eventEmitter.emitToOneBehaviour(LifeCycleEvents.BEHAVIOUR_ADDED, newBeh);
   return newBeh;
 };
 
@@ -71,15 +42,10 @@ const getBehaviourRenderData = (container, behaviour) => {
   return renderData;
 };
 
-const callMethodInAllBehaviours = (container, methodName, args = []) => {
-  const methodsList = container.events[ methodName ];
-  methodsList.forEach(idMethodPair => {
-    idMethodPair.method(...args);
-  });
-};
-
 const initContainer = (container, config, props) => {
   addFieldAndMethodsToContainer(container);
+  container._eventEmitter = new EventEmitterWithDictionaryOfMethodArrays();
+  container.getEventEmitter = () => (container._eventEmitter);
   container.config = config;
   container.props = props;
 
@@ -92,9 +58,11 @@ const initContainer = (container, config, props) => {
     container.addBehaviour(behaviour, props, initData, passedBehParams);
   });
 
-  container.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_INITIALIZED, [
-    props,
-  ]);
+  container._eventEmitter.callMethodInAllBehaviours(
+    LifeCycleEvents.COMPONENT_INITIALIZED,
+    container.behaviourList,
+    [props],
+  );
 };
 
 const removeBehaviour = (container, behaviourInstance) =>{
@@ -105,18 +73,7 @@ const removeBehaviour = (container, behaviourInstance) =>{
       behaviourWillRemoved.call(behaviourInstance);
     }
 
-    // find behaviour methods in by id
-    for (const eventKey in container.events) {
-      const containerConcreteEventArray = container.events[ eventKey ];
-
-      const foundIndex = containerConcreteEventArray.findIndex(idMethodPair => idMethodPair.id === behaviourInstance.name);
-      if (foundIndex !== -1) {
-        // console.log(`remove ${behaviourInstance.name} in ${eventKey} in ${foundIndex}`)
-        // console.log(container.events);
-       // containerConcreteEventArray.splice(foundIndex, 1);
-
-      }
-    }
+    container._eventEmitter.removeEventsOfBehaviour(behaviourInstance.id);
 
     container.behaviourList.splice(foundIndex, 1);
     delete container.behs[behaviourInstance.name];
@@ -130,9 +87,12 @@ const removeBehaviour = (container, behaviourInstance) =>{
 };
 
 const render = (container) => {
-  // container.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_WILL_RENDER, [
-  //   container.props,
-  // ]);
+  // container._eventEmitter.callMethodInAllBehaviours(
+  //   LifeCycleEvents.COMPONENT_WILL_RENDER,
+  //   container.behaviourList,
+  // [container.props],
+  // );
+
   const mapToRenderData = container.config.mapToRenderData || mapToMixedRenderData;
 
   // variant for return function to component

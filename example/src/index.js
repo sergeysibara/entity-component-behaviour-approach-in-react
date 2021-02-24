@@ -1,5 +1,6 @@
-import React,{ useState }  from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
+import './styles.css';
 
 import MultipleLogicEntitiesExample
   from './multipleLogicEntitiesExample/MultipleLogicEntitiesExample';
@@ -17,29 +18,42 @@ import FormExampleWithHooks
 import FormExampleWithBehaviourPropsAndWithHooks
   from './formAndTwoWayBindingExampleWithHooks/FormExampleWithBehaviourPropsAndWithHooks';
 
-// todo move events and callMethod to eventEmitter object
-// todo add object-behaviour - only with all lyfe-cycle methods with logs, and with hooks in render
+// todo add object-behaviour - only with all life-cycle methods with logs, and  with hooks in render
 const App = () => {
   const [visible, setVisible] = useState(true);
   return (
-    <>
-      {/*<MultipleLogicEntitiesExample />*/}
-      {/*<hr />*/}
-      {/*<CounterExample />*/}
-      {/*<hr />*/}
-      {/*<FormExample />*/}
-      {/*<hr />*/}
-      {/*<FormExampleWithBehaviourProps />*/}
-      <br/><br/>
-      Show hooks examples: <br/>
-      <input type="checkbox" checked={visible} onChange={()=>{setVisible(!visible)}} />
-      <br/><br/>
+    <div className="grid">
+      <div className="column-header" />
+      <div className="column-header">
+        Show hooks examples: <br />
+        <input type="checkbox" checked={visible} onChange={() => {
+          setVisible(!visible)
+        }} />
+      </div>
 
-      {visible && <MultipleLogicEntitiesExampleWithHooks />}
-      {visible && <CounterExampleWithHooks />}
-      {visible && <FormExampleWithHooks />}
-      {visible && <FormExampleWithBehaviourPropsAndWithHooks />}
-    </>
+      <div>
+        <MultipleLogicEntitiesExample />
+        <hr />
+        <CounterExample />
+        <hr />
+        <FormExample />
+        <hr />
+        <FormExampleWithBehaviourProps />
+      </div>
+
+      <div>
+        {visible && <>
+          <MultipleLogicEntitiesExampleWithHooks />
+          <hr />
+          <CounterExampleWithHooks />
+          <hr />
+          <FormExampleWithHooks />
+          <hr />
+          <FormExampleWithBehaviourPropsAndWithHooks />
+        </>}
+      </div>
+
+    </div>
   );
 };
 

@@ -7,22 +7,20 @@ import {
 import { initContainer } from './containerMethods';
 import { LifeCycleEvents } from './LifeCycleEvents';
 
-const callLifeCycleEvents = (container) => {
-  const initialConfig = container.config;
-
+const callLifeCycleEvents = (eventEmitter, initialConfig) => {
   if (initialConfig.useEffect === true) {
     // on mount, unmount
     useEffect(() => {
-      container.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_DID_MOUNT);
+      eventEmitter.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_DID_MOUNT);
       return () => {
-        container.callMethodInAllBehaviours(LifeCycleEvents.BEHAVIOUR_WILL_REMOVED);
-        container.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_WILL_UNMOUNT);
+        eventEmitter.callMethodInAllBehaviours(LifeCycleEvents.BEHAVIOUR_WILL_REMOVED);
+        eventEmitter.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_WILL_UNMOUNT);
       }
     }, []);
 
     // on update
     useEffect(() => {
-      container.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_DID_UPDATE_EFFECT);
+      eventEmitter.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_DID_UPDATE_EFFECT);
     });
   }
 
@@ -30,17 +28,17 @@ const callLifeCycleEvents = (container) => {
     // mount, unmount. Only if useEffect not used
     if (initialConfig.useEffect === false) {
       useLayoutEffect(() => {
-        container.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_DID_MOUNT);
+        eventEmitter.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_DID_MOUNT);
         return () => {
-          container.callMethodInAllBehaviours(LifeCycleEvents.BEHAVIOUR_WILL_REMOVED);
-          container.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_WILL_UNMOUNT);
+          eventEmitter.callMethodInAllBehaviours(LifeCycleEvents.BEHAVIOUR_WILL_REMOVED);
+          eventEmitter.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_WILL_UNMOUNT);
         }
       }, []);
     }
 
     // on update
     useLayoutEffect(() => {
-      container.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_DID_UPDATE);
+      eventEmitter.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_DID_UPDATE);
     });
   }
 };
@@ -78,7 +76,7 @@ function useBehaviours(config, props) {
   const container = ref.current;
   container.props = props;
 
-  callLifeCycleEvents(container);
+  callLifeCycleEvents(container.getEventEmitter(), initialConfig);
   return container.render();
 }
 
