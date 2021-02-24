@@ -17,9 +17,8 @@ import FormExampleWithHooks
 import FormExampleWithBehaviourPropsAndWithHooks
   from './formAndTwoWayBindingExampleWithHooks/FormExampleWithBehaviourPropsAndWithHooks';
 
-// TODO: add render function to config and return render function in component
-// и проверить, что так не создаются лишние компоненты-функции-обертки
-// todo rename component to container in all behaviours
+// todo move events and callMethod to eventEmitter object
+// todo add object-behaviour - only with all lyfe-cycle methods with logs, and with hooks in render
 const App = () => {
   const [visible, setVisible] = useState(true);
   return (

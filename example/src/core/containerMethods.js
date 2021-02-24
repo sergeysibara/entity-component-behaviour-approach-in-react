@@ -5,7 +5,7 @@ const addFieldAndMethodsToContainer = (container) => {
   // List with all behaviours of component
   container.behaviourList = [];
 
-  // Object with all behaviours of component. For simplify
+  // Object with all behaviours of container. For simplify
   // access to behaviour by name
   container.behs = {};
 

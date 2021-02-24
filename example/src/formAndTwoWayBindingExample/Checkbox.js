@@ -3,8 +3,8 @@ import createContainerComponent from "../core/createContainerComponent";
 import BaseBehaviour from "../core/BaseBehaviour";
 
 export class CheckboxAdapterToModelBinding extends BaseBehaviour {
-  init(component, props, initData) {
-    super.init(component, props, initData);
+  init(container, props, initData) {
+    super.init(container, props, initData);
 
     this.defaultState = { value: props?.value || false};
     this.passedToRender = {

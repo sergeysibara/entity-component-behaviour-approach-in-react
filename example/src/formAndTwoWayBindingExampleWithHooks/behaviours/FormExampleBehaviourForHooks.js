@@ -6,7 +6,7 @@ export default class FormExampleBehaviourForHooks extends BaseBehaviour {
     handleSubmit: e => {
       e.preventDefault();
       // short way:
-      // const formData = this.component.behs.modelBinding.state;
+      // const formData = this.container.behs.modelBinding.state;
       // const formDataString = JSON.stringify(formData);
 
       // example using ref

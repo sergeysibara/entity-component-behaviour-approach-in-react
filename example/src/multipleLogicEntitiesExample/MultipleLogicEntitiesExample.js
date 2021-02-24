@@ -52,10 +52,10 @@ export default createContainerComponent("MultipleLogicEntitiesExample", {
   render: render
 
   // Example of custom mapToRenderData.
-  // mapToRenderData: component => ({
-  //  ...component.behs.mousePositionInfoManager.mapToRenderData(),
-  //  ...component.behs.mousePositionInfo.mapToRenderData(),
-  //  ...component.behs.messageLoader.mapToRenderData()
+  // mapToRenderData: container => ({
+  //  ...container.behs.mousePositionInfoManager.mapToRenderData(),
+  //  ...container.behs.mousePositionInfo.mapToRenderData(),
+  //  ...container.behs.messageLoader.mapToRenderData()
   // })
 
   // mapToRenderData: mapToMixedRenderData, // can use this row instead custom.

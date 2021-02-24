@@ -1,6 +1,5 @@
 import lowerFirst from "lodash/lowerFirst";
 
-//todo rename component to container
 export default class BaseBehaviour {
   type = Object.getPrototypeOf(this).constructor.name;
   name = lowerFirst(Object.getPrototypeOf(this).constructor.name);
@@ -9,8 +8,8 @@ export default class BaseBehaviour {
   passedToRender = {};
 
   // instead constructor - for using overrided child fields at initialization
-  init(component, props, initData = {}, config) {
-    this.component = component;
+  init(container, props, initData = {}, config) {
+    this.container = container;
     if (initData.name) {
       this.name = initData.name;
     }
@@ -22,15 +21,15 @@ export default class BaseBehaviour {
 
   get ownProps() {
     const propBehaviourName = `bh-${this.name}`;
-    return this.component.props?.[propBehaviourName];
+    return this.container.props?.[propBehaviourName];
   }
 
   // Emulation separated states (every behaviour has own state)
   // Current state will be passed into mapToRenderData method.
   get state() {
     const defaultValue = this.defaultState;
-    return this.component.state
-      ? this.component.state[this.name] || defaultValue
+    return this.container.state
+      ? this.container.state[this.name] || defaultValue
       : defaultValue;
   }
 
@@ -41,7 +40,7 @@ export default class BaseBehaviour {
     //!(typeof partialState === 'object' || typeof partialState === 'function'
     if (typeof stateOrUpdater === 'function') {
       const updater = stateOrUpdater;
-      this.component.setState((prevState) => {
+      this.container.setState((prevState) => {
           return {
             ...prevState,
             [ this.name ]: updater(prevState[ this.name ])
@@ -52,7 +51,7 @@ export default class BaseBehaviour {
     }
 
     const newPartialState = stateOrUpdater;
-    this.component.setState((prevState) => {
+    this.container.setState((prevState) => {
       return {
         ...prevState,
         [this.name]: newPartialState
