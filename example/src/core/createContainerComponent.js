@@ -1,121 +1,32 @@
 import React from "react";
-import { mapToMixedRenderData } from "./mapToRenderDataStrategies";
-
-const LifeCycle = {
-  COMPONENT_DID_INITIALIZED: "componentDidInitialized",
- // COMPONENT_WILL_RENDER: "componentWillRender",
-  COMPONENT_DID_MOUNT: "componentDidMount",
-  BEHAVIOUR_DID_UPDATE: "componentDidUpdate",
-  COMPONENT_WILL_UNMOUNT: "componentWillUnmount",
-  BEHAVIOUR_WILL_REMOVED: "behaviourWillRemoved"
-
-  // unused in the examples:
-  // static getDerivedStateFromProps()
-  // shouldComponentUpdate()
-  // getSnapshotBeforeUpdate()
-  // static getDerivedStateFromError()
-  // componentDidCatch()
-};
+import { initContainer } from './containerMethods';
+import { LifeCycleEvents } from './LifeCycleEvents';
 
 export class ContainerComponent extends React.Component {
-  // List with all behaviours of component
-  behaviourList = [];
-
-  // Object with all behaviours of component. For simplify access to behaviour by name
-  behs = {};
-
-  // Object with pairs: [behaviourName]: behParamsObject
-  behsParams = {};
-  wrapRenderData;
-
   constructor(props, context, config) {
     super(props, context);
-    this.config = config;
-    const behParams = props.defaultBehaviours || config.behaviours || [];
-
-    // create behaviours
-    behParams.forEach(oneBehParams => {
-      const { behaviour, name, initData, ...passedBehParams } = oneBehParams;
-      this.addBehaviour(oneBehParams.behaviour, props, oneBehParams.initData, passedBehParams);
-    });
-
-    this.callMethodInAllBehaviours(LifeCycle.COMPONENT_DID_INITIALIZED, [
-      this.props
-    ]);
-  }
-
-  addBehaviour(behaviour, props, initData, behaviourParams = {}) {
-    const newBeh = new behaviour();
-    newBeh.init(this, props, initData, behaviourParams);
-    this.behaviourList.push(newBeh);
-    this.behs[newBeh.name] = newBeh;
-    this.behsParams[newBeh.name] = behaviourParams;
-    if (newBeh.behaviourAdded) {
-      newBeh.behaviourAdded();
-    }
-    return newBeh;
-  }
-
-  removeBehaviour(behaviourInstance) {
-    const foundIndex = this.behaviourList.indexOf(behaviourInstance);
-    if (foundIndex > -1) {
-      if (behaviourInstance.behaviourWillRemoved) {
-        behaviourInstance.behaviourWillRemoved();
-      }
-      this.behaviourList.splice(foundIndex, 1);
-      delete this.behs[behaviourInstance.name];
-      delete this.behsParams[behaviourInstance.name];
-    } else {
-      console.warn(
-        `removeBehaviour error: ${behaviourInstance.name} not found`
-      );
-    }
-  }
-
-  getBehaviourRenderData = (behaviour) => {
-    const renderData = behaviour.mapToRenderData();
-    const wrapRenderData = this.behsParams[behaviour.name].wrapRenderData;
-    if (wrapRenderData) {
-      return wrapRenderData(renderData);
-    }
-    return renderData;
-  };
-
-  callMethodInAllBehaviours(funcName, args = []) {
-    this.behaviourList.forEach(beh => {
-      if (beh[funcName]) {
-        beh[funcName](...args);
-      }
-    });
+    initContainer(this, config, props);
   }
 
   componentDidMount() {
-    this.callMethodInAllBehaviours(LifeCycle.COMPONENT_DID_MOUNT);
+    this.getEventEmitter().callMethodInAllBehaviours(
+      LifeCycleEvents.COMPONENT_DID_MOUNT, this.behaviourList,
+    );
   }
 
   componentDidUpdate(...args) {
-    this.callMethodInAllBehaviours(LifeCycle.BEHAVIOUR_DID_UPDATE, args);
+    this.getEventEmitter().callMethodInAllBehaviours(
+      LifeCycleEvents.COMPONENT_DID_UPDATE, this.behaviourList, args,
+    );
   }
 
   componentWillUnmount() {
-    this.callMethodInAllBehaviours(LifeCycle.BEHAVIOUR_WILL_REMOVED);
-    this.callMethodInAllBehaviours(LifeCycle.COMPONENT_WILL_UNMOUNT);
-  }
-
-  render() {
-    // this.callMethodInAllBehaviours(LifeCycle.COMPONENT_WILL_RENDER, [
-    //   this.props
-    // ]);
-    const mapToRenderData = this.config.mapToRenderData || mapToMixedRenderData;
-
-    const renderFunc = this.config.render
-      ? this.config.render
-      : ({ props }) => props.children;
-
-    return renderFunc({
-      props: this.props,
-      ...mapToRenderData(this)
-    });
+    this.getEventEmitter().callMethodInAllBehaviours(
+      LifeCycleEvents.BEHAVIOUR_WILL_REMOVED, this.behaviourList,
+    );
+    this.getEventEmitter().callMethodInAllBehaviours(
+      LifeCycleEvents.COMPONENT_WILL_UNMOUNT, this.behaviourList,
+    );
   }
 }
 
