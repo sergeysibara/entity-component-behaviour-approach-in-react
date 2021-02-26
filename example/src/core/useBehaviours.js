@@ -64,7 +64,7 @@ function useBehaviours(config, props) {
     ? ref.current.config
     : { ...defaultConfig, ...config };
 
-  //create shared state
+  // create shared state
   if (initialConfig.useState === true) {
     [state, setState] = useState({});
   }

@@ -1,7 +1,7 @@
 // Map behaviours renderData to object with isolated renderData objects.
 // For example: { behaviour1RenderData, behaviour2RenderData }
 const mapToIsolatedRenderDataObjects = container => {
-  let retData = container.behaviourList.reduce((renderData, beh) => {
+  let retData = container.behaviourArray.reduce((renderData, beh) => {
     renderData[beh.name] = container.getBehaviourRenderData(beh);
     return renderData;
   }, {});

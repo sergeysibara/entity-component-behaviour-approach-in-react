@@ -2,10 +2,11 @@ import { LifeCycleEvents } from './LifeCycleEvents';
 import { mapToMixedRenderData } from './mapToRenderDataStrategies';
 import { EventEmitterWithDictionaryOfMethodArrays }
   from './eventEmitters/EventEmitterWithDictionaryOfMethodArrays';
+import { SimpleEventEmitter } from './eventEmitters/SimpleEventEmitter';
 
 const addFieldAndMethodsToContainer = (container) => {
   // List with all behaviours of component
-  container.behaviourList = [];
+  container.behaviourArray = [];
 
   // Object with all behaviours of container. For simplify
   // access to behaviour by name
@@ -23,7 +24,7 @@ const addFieldAndMethodsToContainer = (container) => {
 
 const addBehaviour = (container, behaviour, props, initData, behaviourParams = {}) => {
   const newBeh = new behaviour();
-  container.behaviourList.push(newBeh);
+  container.behaviourArray.push(newBeh);
   container.behs[ newBeh.name ] = newBeh;
   container.behsParams[ newBeh.name ] = behaviourParams;
 
@@ -47,7 +48,7 @@ const getBehaviourRenderData = (container, behaviour) => {
 
 const initContainer = (container, config, props) => {
   addFieldAndMethodsToContainer(container);
-  container._eventEmitter = new EventEmitterWithDictionaryOfMethodArrays();
+  container._eventEmitter = new SimpleEventEmitter(container);
   container.getEventEmitter = () => (container._eventEmitter);
   container.config = config;
   container.props = props;
@@ -63,13 +64,13 @@ const initContainer = (container, config, props) => {
 
   container._eventEmitter.callMethodInAllBehaviours(
     LifeCycleEvents.COMPONENT_INITIALIZED,
-    container.behaviourList,
+    container.behaviourArray,
     [props],
   );
 };
 
 const removeBehaviour = (container, behaviourInstance) =>{
-  const foundIndex = container.behaviourList.indexOf(behaviourInstance);
+  const foundIndex = container.behaviourArray.indexOf(behaviourInstance);
   if (foundIndex > -1) {
     const behaviourWillRemoved = behaviourInstance[LifeCycleEvents.BEHAVIOUR_WILL_REMOVED];
     if (behaviourWillRemoved) {
@@ -78,7 +79,7 @@ const removeBehaviour = (container, behaviourInstance) =>{
 
     container._eventEmitter.removeEventsOfBehaviour(behaviourInstance.id);
 
-    container.behaviourList.splice(foundIndex, 1);
+    container.behaviourArray.splice(foundIndex, 1);
     delete container.behs[behaviourInstance.name];
     delete container.behsParams[behaviourInstance.name];
 
@@ -92,7 +93,7 @@ const removeBehaviour = (container, behaviourInstance) =>{
 const render = (container) => {
   // container._eventEmitter.callMethodInAllBehaviours(
   //   LifeCycleEvents.COMPONENT_WILL_RENDER,
-  //   container.behaviourList,
+  //   container.behaviourArray,
   // [container.props],
   // );
 

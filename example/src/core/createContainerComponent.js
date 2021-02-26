@@ -10,22 +10,22 @@ export class ContainerComponent extends React.Component {
 
   componentDidMount() {
     this.getEventEmitter().callMethodInAllBehaviours(
-      LifeCycleEvents.COMPONENT_DID_MOUNT, this.behaviourList,
+      LifeCycleEvents.COMPONENT_DID_MOUNT, this.behaviourArray,
     );
   }
 
   componentDidUpdate(...args) {
     this.getEventEmitter().callMethodInAllBehaviours(
-      LifeCycleEvents.COMPONENT_DID_UPDATE, this.behaviourList, args,
+      LifeCycleEvents.COMPONENT_DID_UPDATE, this.behaviourArray, args,
     );
   }
 
   componentWillUnmount() {
     this.getEventEmitter().callMethodInAllBehaviours(
-      LifeCycleEvents.BEHAVIOUR_WILL_REMOVED, this.behaviourList,
+      LifeCycleEvents.BEHAVIOUR_WILL_REMOVED, this.behaviourArray,
     );
     this.getEventEmitter().callMethodInAllBehaviours(
-      LifeCycleEvents.COMPONENT_WILL_UNMOUNT, this.behaviourList,
+      LifeCycleEvents.COMPONENT_WILL_UNMOUNT, this.behaviourArray,
     );
   }
 }

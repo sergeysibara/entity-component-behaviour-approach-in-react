@@ -1,8 +1,8 @@
 import { AbstractEventEmitter } from './AbstractEventEmitter';
 
 export class SimpleEventEmitter extends AbstractEventEmitter {
-  callMethodInAllBehaviours(methodName, behaviourList, args = []) {
-    behaviourList.forEach(beh => {
+  callMethodInAllBehaviours(methodName, args = []) {
+    this.container.behaviourArray.forEach(beh => {
       if (beh[ methodName ]) {
         beh[ methodName ](...args);
       }

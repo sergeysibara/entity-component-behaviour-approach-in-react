@@ -20,7 +20,6 @@ import FormExampleWithBehaviourPropsAndWithHooks
 import LifeCycleExampleWithHooks
   from './LifeCycleExampleWithHooks/LifeCycleExampleWithHooks';
 
-// todo add object-behaviour - only with all life-cycle methods with logs, and  with hooks in render
 const App = () => {
   const [visible, setVisible] = useState(true);
   return (

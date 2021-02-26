@@ -1,5 +1,15 @@
 export class AbstractEventEmitter {
-  callMethodInAllBehaviours(methodName, behaviourList, args = []) {
+  _container;
+
+  get container() {
+    return this._container;
+  }
+
+  constructor(container) {
+    this._container = container;
+  }
+
+  callMethodInAllBehaviours(methodName, behaviourArray, args = []) {
     console.error('Not implemented');
   }
 

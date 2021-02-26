@@ -13,7 +13,7 @@ export class EventEmitterWithDictionaryOfMethodArrays extends AbstractEventEmitt
     return eventDictionary;
   }, {});
 
-  callMethodInAllBehaviours = (methodName, behaviourList, args = []) => {
+  callMethodInAllBehaviours = (methodName, args = []) => {
     const methodsList = this._eventDictionaryWithMethodArrays[ methodName ];
     methodsList.forEach(idMethodPair => {
       idMethodPair.method(...args);
