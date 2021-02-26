@@ -1,4 +1,3 @@
-// names of events for effect hooks check in react
 // repository For enums used google style guide -
 // https://google.github.io/styleguide/jsguide.html#naming-enum-names
 export const LifeCycleEvents = {

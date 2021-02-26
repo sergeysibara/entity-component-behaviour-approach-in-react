@@ -9,23 +9,23 @@ export class AbstractEventEmitter {
     this._container = container;
   }
 
-  callMethodInAllBehaviours(methodName, behaviourArray, args = []) {
+  callMethodInAllBehaviours = (methodName, args = []) => {
     console.error('Not implemented');
-  }
+  };
 
-  emitToOneBehaviour = (event, behaviourInstance, args = []) => {
-    const behaviourMethod = behaviourInstance[ event ];
+  callMethodInBehaviour = (methodName, behaviourInstance, args = []) => {
+    const behaviourMethod = behaviourInstance[ methodName ];
     if (behaviourMethod) {
       behaviourMethod.apply(behaviourInstance, args);
     }
   };
 
-  // Methods only for event emitters that stored events.
-  addBehaviourMethodsToEventsLists() {
+  // Methods only for event emitters that stored subscribers.
+  addBehaviourMethodsToEventsLists = () => {
 
-  }
+  };
 
-  removeEventsOfBehaviour() {
+  removeBehaviourMethodsFromEmitter = () => {
 
-  }
+  };
 }

@@ -33,7 +33,7 @@ export class EventEmitterWithDictionaryOfMethodArrays extends AbstractEventEmitt
   };
 
   // find behaviour methods by id in events and remove from events
-  removeEventsOfBehaviour = (behaviourId) => {
+  removeBehaviourMethodsFromEmitter = (behaviourId) => {
     for (const eventKey in this._eventDictionaryWithMethodArrays) {
       const methodArrayForConcreteEvent = this._eventDictionaryWithMethodArrays[ eventKey ];
 
