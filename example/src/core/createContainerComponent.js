@@ -2,31 +2,63 @@ import React from "react";
 import { initContainer } from './containerMethods';
 import { LifeCycleEvents } from './LifeCycleEvents';
 
+class Container {
+  _component;
+
+  constructor(component) {
+    this._component = component;
+  }
+
+  get state() {
+    return this._component.state;
+  }
+
+  get props() {
+    return this._component.props;
+  }
+
+  setState = (stateOrUpdater) =>{
+    this._component.setState(stateOrUpdater);
+  }
+}
+
 export class ContainerComponent extends React.Component {
+  _container;
+
   constructor(props, context, config) {
     super(props, context);
-    initContainer(this, config, props);
+    this._container = new Container(this);
+    initContainer(this._container, config, props);
+    console.log(this._container);
+  }
+
+  static getDerivedStateFromProps(props, state){
+    console.log(props);
   }
 
   componentDidMount() {
-    this.getEventEmitter().callMethodInAllBehaviours(
+    this._container.getEventEmitter().callMethodInAllBehaviours(
       LifeCycleEvents.COMPONENT_DID_MOUNT, this.behaviourArray,
     );
   }
 
   componentDidUpdate(...args) {
-    this.getEventEmitter().callMethodInAllBehaviours(
+    this._container.getEventEmitter().callMethodInAllBehaviours(
       LifeCycleEvents.COMPONENT_DID_UPDATE, this.behaviourArray, args,
     );
   }
 
   componentWillUnmount() {
-    this.getEventEmitter().callMethodInAllBehaviours(
+    this._container.getEventEmitter().callMethodInAllBehaviours(
       LifeCycleEvents.BEHAVIOUR_WILL_REMOVED, this.behaviourArray,
     );
-    this.getEventEmitter().callMethodInAllBehaviours(
+    this._container.getEventEmitter().callMethodInAllBehaviours(
       LifeCycleEvents.COMPONENT_WILL_UNMOUNT, this.behaviourArray,
     );
+  }
+
+  render() {
+    return this._container.render();
   }
 }
 

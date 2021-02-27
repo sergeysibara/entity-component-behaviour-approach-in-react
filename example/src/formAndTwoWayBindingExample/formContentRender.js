@@ -6,10 +6,11 @@ export const formContentRender = ({
                              confirm,
                              bindModel,
                              handleSubmit,
-                             formData
+                             formData,
+                             formRef,
                            }) => {
   return (
-    <form onSubmit={handleSubmit} ref="form">
+    <form onSubmit={handleSubmit} ref={formRef}>
       <label>
         {`First Name (value = ${firstName}) `}
         <br />
