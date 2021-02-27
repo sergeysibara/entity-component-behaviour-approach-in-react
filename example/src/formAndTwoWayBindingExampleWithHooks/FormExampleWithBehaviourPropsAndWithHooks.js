@@ -1,15 +1,14 @@
-import React from 'react';
-import ModelBinding
+import { ModelBinding }
   from '../formAndTwoWayBindingExample/behaviours/ModelBinding';
 import { formContentRender } from './formContentRender';
-import FormExampleBehaviour from './behaviours/FormExampleBehaviourForHooks';
+import { FormExampleBehaviourForHooks } from './behaviours/FormExampleBehaviourForHooks';
 import { useBehaviours } from '../core/forFunctionalComponent/useBehaviours';
 
 const FormContentWithoutModelWithHooks = (props) => {
   return useBehaviours({
       behaviours: [
         { behaviour: ModelBinding },
-        { behaviour: FormExampleBehaviour },
+        { behaviour: FormExampleBehaviourForHooks },
       ],
       render: formContentRender,
     },
@@ -17,7 +16,7 @@ const FormContentWithoutModelWithHooks = (props) => {
   );
 };
 
-const FormExampleWithBehaviourPropsWithHooks = () => (
+export const FormExampleWithBehaviourPropsAndWithHooks = () => (
   <>
     <h3>
       Form example with common render function and separated behaviour props )
@@ -27,5 +26,3 @@ const FormExampleWithBehaviourPropsWithHooks = () => (
     />
   </>
 );
-
-export default FormExampleWithBehaviourPropsWithHooks;

@@ -1,7 +1,7 @@
-import BaseBehaviour from "../../core/BaseBehaviour";
+import { BaseBehaviour } from "../../core/BaseBehaviour";
 import cloneDeep from "lodash/cloneDeep";
 
-export default class ModelBinding extends BaseBehaviour {
+export class ModelBinding extends BaseBehaviour {
   passedToRender = {
     bindModel: {}
   };

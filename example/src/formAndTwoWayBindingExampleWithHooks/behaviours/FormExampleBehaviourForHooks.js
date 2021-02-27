@@ -1,7 +1,7 @@
-import BaseBehaviour from '../../core/BaseBehaviour';
+import { BaseBehaviour } from '../../core/BaseBehaviour';
 import { useRef } from 'react';
 
-export default class FormExampleBehaviourForHooks extends BaseBehaviour {
+export class FormExampleBehaviourForHooks extends BaseBehaviour {
   passedToRender = {
     handleSubmit: e => {
       e.preventDefault();

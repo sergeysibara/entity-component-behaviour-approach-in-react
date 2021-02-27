@@ -1,5 +1,5 @@
-import BaseMousePositionInfo from "./BaseMousePositionInfo";
+import { BaseMousePositionInfo } from "./BaseMousePositionInfo";
 
-export default class MousePositionOnMove extends BaseMousePositionInfo {
+export class MousePositionOnMove extends BaseMousePositionInfo {
   mouseEvent = "mousemove";
 }

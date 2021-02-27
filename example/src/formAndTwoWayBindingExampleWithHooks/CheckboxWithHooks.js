@@ -1,7 +1,7 @@
 import { useBehaviours } from "../core/forFunctionalComponent/useBehaviours";
 import { CheckboxAdapterToModelBinding } from '../formAndTwoWayBindingExample/Checkbox';
 
-const CheckboxWithHooks = (props) => {
+export const CheckboxWithHooks = (props) => {
   return useBehaviours({
       behaviours: [{ behaviour: CheckboxAdapterToModelBinding }],
       render: ({ value, onChange }) => (
@@ -14,5 +14,3 @@ const CheckboxWithHooks = (props) => {
     props,
   );
 };
-
-export default CheckboxWithHooks;

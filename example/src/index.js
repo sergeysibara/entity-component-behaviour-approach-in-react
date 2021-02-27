@@ -2,22 +2,22 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './styles.css';
 
-import MultipleLogicEntitiesExample
+import { MultipleLogicEntitiesExample }
   from './multipleLogicEntitiesExample/MultipleLogicEntitiesExample';
-import CounterExample from './counterExample/CounterExample';
-import FormExample from './formAndTwoWayBindingExample/FormExample';
-import FormExampleWithBehaviourProps
+import { CounterExample } from './counterExample/CounterExample';
+import { FormExample } from './formAndTwoWayBindingExample/FormExample';
+import { FormExampleWithBehaviourProps }
   from './formAndTwoWayBindingExample/FormExampleWithBehaviourProps';
 
-import MultipleLogicEntitiesExampleWithHooks
+import { MultipleLogicEntitiesExampleWithHooks }
   from './multipleLogicEntitiesExampleWithHooks/MultipleLogicEntitiesExampleWithHooks';
-import CounterExampleWithHooks
+import { CounterExampleWithHooks }
   from './counterExample/CounterExampleWithHooks';
-import FormExampleWithHooks
+import { FormExampleWithHooks }
   from './formAndTwoWayBindingExampleWithHooks/FormExampleWithHooks';
-import FormExampleWithBehaviourPropsAndWithHooks
+import { FormExampleWithBehaviourPropsAndWithHooks }
   from './formAndTwoWayBindingExampleWithHooks/FormExampleWithBehaviourPropsAndWithHooks';
-import LifeCycleExampleWithHooks
+import { LifeCycleExampleWithHooks }
   from './LifeCycleExampleWithHooks/LifeCycleExampleWithHooks';
 
 const App = () => {

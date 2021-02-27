@@ -1,10 +1,10 @@
-import BaseBehaviour from "../../core/BaseBehaviour";
+import { BaseBehaviour } from "../../core/BaseBehaviour";
 
 // There is no need to use inheritance for this case and no need
 // to create MousePositionOnClick, MousePositionOnMove behaviours.
 // This is only for replacing behaviours example.
 
-export default class BaseMousePositionInfo extends BaseBehaviour {
+export class BaseMousePositionInfo extends BaseBehaviour {
   mouseEvent = ""; // to set in child classes
   defaultState = { position: { x: 0, y: 0 }};
 

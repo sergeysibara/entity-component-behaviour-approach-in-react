@@ -1,7 +1,7 @@
-import BaseBehaviour from "../../core/BaseBehaviour";
-import messageAPI from "../messageAPI";
+import { BaseBehaviour } from "../../core/BaseBehaviour";
+import { messageAPI } from "../messageAPI";
 
-export default class MessageLoader extends BaseBehaviour {
+export class MessageLoader extends BaseBehaviour {
   defaultState = { isLoading: true };
 
   componentDidMount() {

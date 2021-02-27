@@ -1,5 +1,5 @@
-import createComponentWithContainer from "../core/forClassComponent/createComponentWithContainer";
-import BaseBehaviour from "../core/BaseBehaviour";
+import { createComponentWithContainer } from "../core/forClassComponent/createComponentWithContainer";
+import { BaseBehaviour } from "../core/BaseBehaviour";
 
 class CounterBehaviour extends BaseBehaviour {
   defaultState = { count: 0 };
@@ -10,7 +10,7 @@ class CounterBehaviour extends BaseBehaviour {
   };
 }
 
-export default createComponentWithContainer("CounterExample", {
+export const CounterExample = createComponentWithContainer("CounterExample", {
   behaviours: [{ behaviour: CounterBehaviour }],
   render: ({ count, setCount }) => (
     <>

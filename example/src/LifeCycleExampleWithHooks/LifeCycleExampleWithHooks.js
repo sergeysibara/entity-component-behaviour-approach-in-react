@@ -1,6 +1,5 @@
-import {useMemo, useState, useCallback} from "react";
+import { useMemo, useState, useCallback } from 'react';
 import { useBehaviours } from '../core/forFunctionalComponent/useBehaviours';
-import lowerFirst from 'lodash/lowerFirst';
 
 function LifeCycleExampleWithHooksBehaviour() {
   return {
@@ -51,7 +50,7 @@ function LifeCycleExampleWithHooksBehaviour() {
   };
 }
 
-const LifeCycleExampleWithHooks = ()=> (
+export const LifeCycleExampleWithHooks = ()=> (
   useBehaviours({
     behaviours: [{ behaviour: LifeCycleExampleWithHooksBehaviour }],
     useLayoutEffect: true,
@@ -65,5 +64,3 @@ const LifeCycleExampleWithHooks = ()=> (
     ),
   })
 );
-
-export default LifeCycleExampleWithHooks;

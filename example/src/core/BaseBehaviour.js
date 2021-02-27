@@ -1,6 +1,6 @@
 import lowerFirst from "lodash/lowerFirst";
 
-export default class BaseBehaviour {
+export class BaseBehaviour {
   type = Object.getPrototypeOf(this).constructor.name;
   name = lowerFirst(this.type);
   // id = Symbol(this.type);

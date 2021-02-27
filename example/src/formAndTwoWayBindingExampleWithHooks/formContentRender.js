@@ -1,4 +1,4 @@
-import Checkbox from './CheckboxWithHooks';
+import { CheckboxWithHooks } from './CheckboxWithHooks';
 
 export const formContentRender = ({
                                     firstName,
@@ -26,7 +26,7 @@ export const formContentRender = ({
       <br />
       <br />
       <label>
-        <Checkbox {...bindModel.confirm} />
+        <CheckboxWithHooks {...bindModel.confirm} />
         {`Confirm (value = ${confirm}) `}
       </label>
       <br />

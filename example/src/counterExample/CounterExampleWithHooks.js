@@ -1,4 +1,4 @@
-import BaseBehaviour from "../core/BaseBehaviour";
+import { BaseBehaviour } from "../core/BaseBehaviour";
 import { useBehaviours } from '../core/forFunctionalComponent/useBehaviours';
 
 class CounterBehaviour extends BaseBehaviour {
@@ -10,7 +10,7 @@ class CounterBehaviour extends BaseBehaviour {
   };
 }
 
-const CounterExampleWithHooks = () => {
+export const CounterExampleWithHooks = () => {
   return useBehaviours({
     behaviours: [{ behaviour: CounterBehaviour }],
     render: ({ count, setCount }) => (
@@ -22,5 +22,3 @@ const CounterExampleWithHooks = () => {
     ),
   });
 };
-
-export default CounterExampleWithHooks;

@@ -54,7 +54,7 @@ const defaultConfig = {
   useLayoutEffect: false,
 };
 
-function useBehaviours(config, props) {
+export const useBehaviours = (config, props) =>{
   const ref = useRef();
   let state, setState;
   let isFirstRender = false;
@@ -83,6 +83,4 @@ function useBehaviours(config, props) {
 
   callLifeCycleEvents(container.eventEmitter, initialConfig, isFirstRender);
   return container.render();
-}
-
-export { useBehaviours }
+};

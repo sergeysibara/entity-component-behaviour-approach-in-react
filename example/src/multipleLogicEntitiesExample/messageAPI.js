@@ -1,4 +1,4 @@
-export default {
+export const messageAPI = {
   getMessage: async () => {
     let promise = new Promise((resolve, reject) => {
       setTimeout(

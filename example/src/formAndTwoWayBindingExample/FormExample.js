@@ -1,7 +1,6 @@
-import React from "react";
-import createComponentWithContainer from "../core/forClassComponent/createComponentWithContainer";
-import ModelBinding from "./behaviours/ModelBinding";
-import FormExampleBehaviour from "./behaviours/FormExampleBehaviour";
+import { createComponentWithContainer } from "../core/forClassComponent/createComponentWithContainer";
+import { ModelBinding } from "./behaviours/ModelBinding";
+import { FormExampleBehaviour } from "./behaviours/FormExampleBehaviour";
 import { formContentRender } from './formContentRender';
 
 /** Example of next features:
@@ -25,11 +24,9 @@ const FormContent = createComponentWithContainer("FormContent", {
   render: formContentRender
 });
 
-const FormExample = () => (
+export const FormExample = () => (
   <>
     <h3>Form and two way binding example</h3>
     <FormContent />
   </>
 );
-
-export default FormExample;

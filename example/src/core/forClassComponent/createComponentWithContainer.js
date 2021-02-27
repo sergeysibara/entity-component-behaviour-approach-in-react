@@ -38,7 +38,7 @@ class ComponentWithContainer extends React.Component {
 }
 
 // For reduce lines of code (without writing an excess constructor code)
-const createComponentWithContainer = (componentName, config) => {
+export const createComponentWithContainer = (componentName, config) => {
   return class extends ComponentWithContainer {
     constructor(props, context) {
       super(props, context, config);
@@ -46,5 +46,3 @@ const createComponentWithContainer = (componentName, config) => {
     static displayName = componentName;
   };
 };
-
-export default createComponentWithContainer;

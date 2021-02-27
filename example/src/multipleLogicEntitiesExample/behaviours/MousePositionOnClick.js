@@ -1,6 +1,6 @@
-import BaseMousePositionInfo from "./BaseMousePositionInfo";
+import { BaseMousePositionInfo } from "./BaseMousePositionInfo";
 
-export default class MousePositionOnClick extends BaseMousePositionInfo {
+export class MousePositionOnClick extends BaseMousePositionInfo {
   mouseEvent = "click";
 
   passedToRender = {

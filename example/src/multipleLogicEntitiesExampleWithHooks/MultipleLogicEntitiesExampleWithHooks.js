@@ -1,10 +1,10 @@
-import MousePositionInfoManager from "../multipleLogicEntitiesExample/behaviours/MousePositionInfoManager";
+import { MousePositionInfoManager } from "../multipleLogicEntitiesExample/behaviours/MousePositionInfoManager";
 import { render } from "../multipleLogicEntitiesExample/MultipleLogicEntitiesExample";
-import MousePositionOnMove from "../multipleLogicEntitiesExample/behaviours/MousePositionOnMove";
-import MessageLoader from "../multipleLogicEntitiesExample/behaviours/MessageLoader";
+import { MousePositionOnMove } from "../multipleLogicEntitiesExample/behaviours/MousePositionOnMove";
+import { MessageLoader } from "../multipleLogicEntitiesExample/behaviours/MessageLoader";
 import { useBehaviours } from '../core/forFunctionalComponent/useBehaviours';
 
-const multipleLogicEntitiesExampleWithHooks = () => {
+export const MultipleLogicEntitiesExampleWithHooks = () => {
   return useBehaviours({
     behaviours: [
       { behaviour: MousePositionInfoManager },
@@ -14,5 +14,3 @@ const multipleLogicEntitiesExampleWithHooks = () => {
     render: render
   });
 };
-
-export default multipleLogicEntitiesExampleWithHooks;

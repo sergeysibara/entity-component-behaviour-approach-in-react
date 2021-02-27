@@ -1,8 +1,8 @@
-import BaseBehaviour from "../../core/BaseBehaviour";
-import MousePositionOnMove from "./MousePositionOnMove";
-import MousePositionOnClick from "./MousePositionOnClick";
+import { BaseBehaviour } from "../../core/BaseBehaviour";
+import { MousePositionOnMove } from "./MousePositionOnMove";
+import { MousePositionOnClick } from "./MousePositionOnClick";
 
-export default class MousePositionInfoManager extends BaseBehaviour {
+export class MousePositionInfoManager extends BaseBehaviour {
   passedToRender = {
     toggleMousePositionInfoBehaviour: () => {
       let beh = this.container.behs.mousePositionOnMove;

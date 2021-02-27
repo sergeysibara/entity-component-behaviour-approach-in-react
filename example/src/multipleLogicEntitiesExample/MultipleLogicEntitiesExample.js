@@ -1,8 +1,7 @@
-import React from "react";
-import MousePositionInfoManager from "./behaviours/MousePositionInfoManager";
-import createComponentWithContainer from "../core/forClassComponent/createComponentWithContainer";
-import MousePositionOnMove from "./behaviours/MousePositionOnMove";
-import MessageLoader from "./behaviours/MessageLoader";
+import { MousePositionInfoManager } from "./behaviours/MousePositionInfoManager";
+import { createComponentWithContainer } from "../core/forClassComponent/createComponentWithContainer";
+import { MousePositionOnMove } from "./behaviours/MousePositionOnMove";
+import { MessageLoader } from "./behaviours/MessageLoader";
 // import { mapToMixedRenderData } from "../core/mapToRenderDataStrategies";
 
 /** Example of next features:
@@ -43,7 +42,7 @@ export const render = ({
   </>
 );
 
-export default createComponentWithContainer("MultipleLogicEntitiesExample", {
+export const MultipleLogicEntitiesExample = createComponentWithContainer("MultipleLogicEntitiesExample", {
   behaviours: [
     { behaviour: MousePositionInfoManager },
     { behaviour: MousePositionOnMove },

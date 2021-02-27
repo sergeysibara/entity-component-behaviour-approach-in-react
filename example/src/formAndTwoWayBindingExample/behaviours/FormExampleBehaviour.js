@@ -1,7 +1,7 @@
-import BaseBehaviour from "../../core/BaseBehaviour";
+import { BaseBehaviour } from "../../core/BaseBehaviour";
 import { createRef } from 'react';
 
-export default class FormExampleBehaviour extends BaseBehaviour {
+export class FormExampleBehaviour extends BaseBehaviour {
   passedToRender = {
     formRef: createRef(),
     handleSubmit: e => {
