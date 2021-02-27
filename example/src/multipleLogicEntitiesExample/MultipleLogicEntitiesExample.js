@@ -1,6 +1,6 @@
 import React from "react";
 import MousePositionInfoManager from "./behaviours/MousePositionInfoManager";
-import createContainerComponent from "../core/createContainerComponent";
+import createComponentWithContainer from "../core/forClassComponent/createComponentWithContainer";
 import MousePositionOnMove from "./behaviours/MousePositionOnMove";
 import MessageLoader from "./behaviours/MessageLoader";
 // import { mapToMixedRenderData } from "../core/mapToRenderDataStrategies";
@@ -43,7 +43,7 @@ export const render = ({
   </>
 );
 
-export default createContainerComponent("MultipleLogicEntitiesExample", {
+export default createComponentWithContainer("MultipleLogicEntitiesExample", {
   behaviours: [
     { behaviour: MousePositionInfoManager },
     { behaviour: MousePositionOnMove },

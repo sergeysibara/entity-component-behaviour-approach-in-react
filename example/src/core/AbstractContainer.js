@@ -19,12 +19,15 @@ export class AbstractContainer {
   // Object with pairs: [behaviourName]: behParamsObject
   behsParams = {};
 
-  init(config, props, state = undefined, setState = undefined) {
-    this._eventEmitter = new SimpleEventEmitter(this);
-
+  init(config, props) {
+    this._eventEmitter = new SimpleEventEmitter();
+    this._eventEmitter.init(this);
     this._config = config;
-    // this.props = props; // only for functional components
 
+    this._createBehaviours(props);
+  }
+
+  _createBehaviours(props) {
     const defaultBehaviours = props?.defaultBehaviours;
     const allBehParams = defaultBehaviours || this.config.behaviours || [];
 
@@ -51,17 +54,14 @@ export class AbstractContainer {
 
   get state() {
     console.error('container state getter is not implemented');
-    // return this._component.state;
   }
 
   get props() {
     console.error('container props getter is not implemented');
-    // return this._component.props;
   }
 
   setState(stateOrUpdater){
     console.error('container setState is not implemented');
-    // this._component.setState(stateOrUpdater);
   }
 
   addBehaviour(behaviour, props, initData, behaviourParams = {}) {

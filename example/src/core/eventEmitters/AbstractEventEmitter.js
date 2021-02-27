@@ -5,7 +5,7 @@ export class AbstractEventEmitter {
     return this._container;
   }
 
-  constructor(container) {
+  init(container) {
     this._container = container;
   }
 

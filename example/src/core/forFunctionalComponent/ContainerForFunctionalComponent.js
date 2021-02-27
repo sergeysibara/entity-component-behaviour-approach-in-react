@@ -6,8 +6,8 @@ export class ContainerForFunctionalComponent extends AbstractContainer {
   _state;
 
   init(config, props, state, setState) {
-    this._props = props; // only for functional components
-    this._state = state; // only for functional components
+    this._props = props;
+    this._state = state;
     this.setState = setState;
     super.init(config, props);
   }

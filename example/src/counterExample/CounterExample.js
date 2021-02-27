@@ -1,4 +1,4 @@
-import createContainerComponent from "../core/createContainerComponent";
+import createComponentWithContainer from "../core/forClassComponent/createComponentWithContainer";
 import BaseBehaviour from "../core/BaseBehaviour";
 
 class CounterBehaviour extends BaseBehaviour {
@@ -10,7 +10,7 @@ class CounterBehaviour extends BaseBehaviour {
   };
 }
 
-export default createContainerComponent("CounterExample", {
+export default createComponentWithContainer("CounterExample", {
   behaviours: [{ behaviour: CounterBehaviour }],
   render: ({ count, setCount }) => (
     <>

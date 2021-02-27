@@ -1,5 +1,5 @@
 import React from "react";
-import createContainerComponent from "../core/createContainerComponent";
+import createComponentWithContainer from "../core/forClassComponent/createComponentWithContainer";
 import ModelBinding from "./behaviours/ModelBinding";
 import FormExampleBehaviour from "./behaviours/FormExampleBehaviour";
 import { formContentRender } from './formContentRender';
@@ -8,7 +8,7 @@ import { formContentRender } from './formContentRender';
  * two way binding;
  * using 'wrapRenderData' function in config; (in commented out code)
  */
-const FormContent = createContainerComponent("FormContent", {
+const FormContent = createComponentWithContainer("FormContent", {
   behaviours: [
     {
       behaviour: ModelBinding,

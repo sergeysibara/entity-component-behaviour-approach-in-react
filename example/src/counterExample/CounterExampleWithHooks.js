@@ -1,5 +1,5 @@
 import BaseBehaviour from "../core/BaseBehaviour";
-import { useBehaviours } from '../core/useBehaviours';
+import { useBehaviours } from '../core/forFunctionalComponent/useBehaviours';
 
 class CounterBehaviour extends BaseBehaviour {
   defaultState = { count: 0 };

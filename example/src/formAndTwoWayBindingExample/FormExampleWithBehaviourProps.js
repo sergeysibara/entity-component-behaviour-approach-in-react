@@ -1,5 +1,5 @@
 import React from "react";
-import createContainerComponent from "../core/createContainerComponent";
+import createComponentWithContainer from "../core/forClassComponent/createComponentWithContainer";
 import ModelBinding from "./behaviours/ModelBinding";
 import { formContentRender } from "./formContentRender";
 import FormExampleBehaviour from "./behaviours/FormExampleBehaviour";
@@ -11,7 +11,7 @@ import FormExampleBehaviour from "./behaviours/FormExampleBehaviour";
  * using behaviours like vue directives. (in commented out code)
  */
 
-const FormContentWithoutModel = createContainerComponent(
+const FormContentWithoutModel = createComponentWithContainer(
   "FormContentWithoutModel",
   {
     behaviours: [

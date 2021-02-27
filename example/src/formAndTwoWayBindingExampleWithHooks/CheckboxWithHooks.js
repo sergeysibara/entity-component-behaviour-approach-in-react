@@ -1,4 +1,4 @@
-import { useBehaviours } from "../core/useBehaviours";
+import { useBehaviours } from "../core/forFunctionalComponent/useBehaviours";
 import { CheckboxAdapterToModelBinding } from '../formAndTwoWayBindingExample/Checkbox';
 
 const CheckboxWithHooks = (props) => {

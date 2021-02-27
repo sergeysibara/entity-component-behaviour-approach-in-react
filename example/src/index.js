@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './styles.css';
 
-// import MultipleLogicEntitiesExample
-//   from './multipleLogicEntitiesExample/MultipleLogicEntitiesExample';
-// import CounterExample from './counterExample/CounterExample';
-// import FormExample from './formAndTwoWayBindingExample/FormExample';
-// import FormExampleWithBehaviourProps
-//   from './formAndTwoWayBindingExample/FormExampleWithBehaviourProps';
+import MultipleLogicEntitiesExample
+  from './multipleLogicEntitiesExample/MultipleLogicEntitiesExample';
+import CounterExample from './counterExample/CounterExample';
+import FormExample from './formAndTwoWayBindingExample/FormExample';
+import FormExampleWithBehaviourProps
+  from './formAndTwoWayBindingExample/FormExampleWithBehaviourProps';
 
 import MultipleLogicEntitiesExampleWithHooks
   from './multipleLogicEntitiesExampleWithHooks/MultipleLogicEntitiesExampleWithHooks';
@@ -32,15 +32,15 @@ const App = () => {
         }} />
       </div>
 
-      {/*<div>*/}
-      {/*  <MultipleLogicEntitiesExample />*/}
-      {/*  <hr />*/}
-      {/*  <CounterExample />*/}
-      {/*  <hr />*/}
-      {/*  <FormExample />*/}
-      {/*  <hr />*/}
-      {/*  <FormExampleWithBehaviourProps />*/}
-      {/*</div>*/}
+      <div>
+        <MultipleLogicEntitiesExample />
+        <hr />
+        <CounterExample />
+        <hr />
+        <FormExample />
+        <hr />
+        <FormExampleWithBehaviourProps />
+      </div>
 
       <div>
         {visible && <>

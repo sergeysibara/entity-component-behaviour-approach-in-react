@@ -34,7 +34,6 @@ export default class BaseBehaviour {
    * callback - only for class component
    */
   setState(stateOrUpdater, callback) {
-    //!(typeof partialState === 'object' || typeof partialState === 'function'
     if (typeof stateOrUpdater === 'function') {
       const updater = stateOrUpdater;
       this.container.setState((prevState) => {
@@ -64,7 +63,8 @@ export default class BaseBehaviour {
     };
   }
 
+  // Clearing state (it is need due to the state emulation with using component state)
   behaviourWillRemoved() {
-    this.setState(undefined); // clearing state (it is need due to the state emulation with using component state)
+    this.setState(undefined);
   }
 }

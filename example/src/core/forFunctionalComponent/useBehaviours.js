@@ -4,8 +4,8 @@ import {
   useEffect,
   useLayoutEffect,
 } from 'react';
-import { LifeCycleEvents } from './LifeCycleEvents';
-import { ContainerForFunctionalComponent } from './forFunctionalComponent/ContainerForFunctionalComponent';
+import { LifeCycleEvents } from '../LifeCycleEvents';
+import { ContainerForFunctionalComponent } from './ContainerForFunctionalComponent';
 
 const callLifeCycleEvents = (eventEmitter, initialConfig, isFirstRender) => {
   if (initialConfig.useEffect === true) {

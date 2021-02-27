@@ -1,5 +1,5 @@
 import React from "react";
-import createContainerComponent from "../core/createContainerComponent";
+import createComponentWithContainer from "../core/forClassComponent/createComponentWithContainer";
 import BaseBehaviour from "../core/BaseBehaviour";
 
 export class CheckboxAdapterToModelBinding extends BaseBehaviour {
@@ -16,7 +16,7 @@ export class CheckboxAdapterToModelBinding extends BaseBehaviour {
   }
 }
 
-export default createContainerComponent("Checkbox", {
+export default createComponentWithContainer("Checkbox", {
   behaviours: [{ behaviour: CheckboxAdapterToModelBinding }],
   render: ({ props, value, onChange }) => (
     <input {...props} type="checkbox" checked={value} onChange={onChange} />

@@ -3,7 +3,7 @@ import ModelBinding
   from '../formAndTwoWayBindingExample/behaviours/ModelBinding';
 import { formContentRender } from './formContentRender';
 import FormExampleBehaviour from './behaviours/FormExampleBehaviourForHooks';
-import { useBehaviours } from '../core/useBehaviours';
+import { useBehaviours } from '../core/forFunctionalComponent/useBehaviours';
 
 const FormContentWithoutModelWithHooks = (props) => {
   return useBehaviours({

@@ -1,40 +1,39 @@
 import {useMemo, useState, useCallback} from "react";
-import { useBehaviours } from '../core/useBehaviours';
+import { useBehaviours } from '../core/forFunctionalComponent/useBehaviours';
 import lowerFirst from 'lodash/lowerFirst';
 
 function LifeCycleExampleWithHooksBehaviour() {
   return {
     type: 'LifeCycleExampleWithHooksBehaviour',
     name: 'lifeCycleExampleWithHooksBehaviour',
-    id: Symbol(this.type),
 
-    // behaviourAdded() {
-    //   console.log('behaviourAdded')
-    // },
-    //
-    // componentInitialized() {
-    //   console.log('componentInitialized')
-    // },
-    //
-    // componentDidMount() {
-    //   console.log('componentDidMount')
-    // },
-    //
-    // componentDidUpdate() {
-    //   console.log('componentDidUpdate')
-    // },
-    //
-    // componentDidUpdateEffect() {
-    //   console.log('componentDidUpdateEffect')
-    // },
-    //
-    // behaviourWillRemoved() {
-    //   console.log('behaviourWillRemoved')
-    // },
-    //
-    // componentWillUnmount() {
-    //   console.log('componentWillUnmount')
-    // },
+    behaviourAdded() {
+      console.log('behaviourAdded')
+    },
+
+    componentInitialized() {
+      console.log('componentInitialized')
+    },
+
+    componentDidMount() {
+      console.log('componentDidMount')
+    },
+
+    componentDidUpdate() {
+      console.log('componentDidUpdate')
+    },
+
+    componentDidUpdateEffect() {
+      console.log('componentDidUpdateEffect')
+    },
+
+    behaviourWillRemoved() {
+      console.log('behaviourWillRemoved')
+    },
+
+    componentWillUnmount() {
+      console.log('componentWillUnmount')
+    },
 
     mapToRenderData() {
       const [count, setCount] = useState(0);
