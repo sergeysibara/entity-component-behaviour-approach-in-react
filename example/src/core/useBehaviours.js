@@ -4,8 +4,8 @@ import {
   useEffect,
   useLayoutEffect,
 } from 'react';
-import { initContainer } from './containerMethods';
 import { LifeCycleEvents } from './LifeCycleEvents';
+import { ContainerForFunctionalComponent } from './forFunctionalComponent/ContainerForFunctionalComponent';
 
 const callLifeCycleEvents = (eventEmitter, initialConfig, isFirstRender) => {
   if (initialConfig.useEffect === true) {
@@ -69,20 +69,19 @@ function useBehaviours(config, props) {
     [state, setState] = useState({});
   }
 
+
   if (!ref.current) {
-    ref.current = {};
-    ref.current.state = state;
-    ref.current.setState = setState;
-    initContainer(ref.current, initialConfig, props);
+    ref.current = new ContainerForFunctionalComponent();
+    ref.current.init(initialConfig, props, state, setState);
     isFirstRender = true;
   } else {
+    // update state and props in container
     ref.current.state = state;
+    ref.current.props = props;
   }
-
   const container = ref.current;
-  container.props = props;
 
-  callLifeCycleEvents(container.getEventEmitter(), initialConfig, isFirstRender);
+  callLifeCycleEvents(container.eventEmitter, initialConfig, isFirstRender);
   return container.render();
 }
 

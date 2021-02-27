@@ -28,12 +28,7 @@ export class ContainerComponent extends React.Component {
   constructor(props, context, config) {
     super(props, context);
     this._container = new Container(this);
-    initContainer(this._container, config, props);
-    console.log(this._container);
-  }
-
-  static getDerivedStateFromProps(props, state){
-    console.log(props);
+    //initContainer(this._container, config, props);
   }
 
   componentDidMount() {

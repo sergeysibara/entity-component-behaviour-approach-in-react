@@ -6,8 +6,8 @@ export default class ModelBinding extends BaseBehaviour {
     bindModel: {}
   };
 
-  init(container, props, initData) {
-    super.init(container, props, initData);
+  init(container, props, initData, config) {
+    super.init(container, props, initData, config);
     const model = cloneDeep(this.ownProps || initData.model);
     this.defaultState = model;
 

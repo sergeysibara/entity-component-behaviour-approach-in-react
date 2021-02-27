@@ -1,4 +1,4 @@
-import Checkbox from '../formAndTwoWayBindingExample/Checkbox';
+import Checkbox from './CheckboxWithHooks';
 
 export const formContentRender = ({
                                     firstName,
