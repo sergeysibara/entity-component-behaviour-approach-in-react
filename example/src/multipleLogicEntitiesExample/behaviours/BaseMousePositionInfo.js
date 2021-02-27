@@ -5,7 +5,6 @@ import BaseBehaviour from "../../core/BaseBehaviour";
 // This is only for replacing behaviours example.
 
 export default class BaseMousePositionInfo extends BaseBehaviour {
-  name = "mousePositionInfo";
   mouseEvent = ""; // to set in child classes
   defaultState = { position: { x: 0, y: 0 }};
 

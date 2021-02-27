@@ -77,7 +77,7 @@ const removeBehaviour = (container, behaviourInstance) =>{
       behaviourWillRemoved.call(behaviourInstance);
     }
 
-    container._eventEmitter.removeBehaviourMethodsFromEmitter(behaviourInstance.id);
+    container._eventEmitter.removeBehaviourMethodsFromEmitter(behaviourInstance.name);
 
     container.behaviourArray.splice(foundIndex, 1);
     delete container.behs[behaviourInstance.name];

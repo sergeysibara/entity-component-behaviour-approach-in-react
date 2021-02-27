@@ -76,8 +76,6 @@ export class AbstractContainer {
       newBeh.init(this, props, initData, behaviourParams);
     }
 
-
-
     this._eventEmitter.callMethodInBehaviour(LifeCycleEvents.BEHAVIOUR_ADDED, newBeh);
     return newBeh;
   }
@@ -99,7 +97,7 @@ export class AbstractContainer {
         behaviourWillRemoved.call(behaviourInstance);
       }
 
-      this._eventEmitter.removeBehaviourMethodsFromEmitter(behaviourInstance.id);
+      this._eventEmitter.removeBehaviourMethodsFromEmitter(behaviourInstance.name);
 
       this.behaviourArray.splice(foundIndex, 1);
       delete this.behs[behaviourInstance.name];

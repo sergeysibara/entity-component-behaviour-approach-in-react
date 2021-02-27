@@ -5,15 +5,16 @@ import MousePositionOnClick from "./MousePositionOnClick";
 export default class MousePositionInfoManager extends BaseBehaviour {
   passedToRender = {
     toggleMousePositionInfoBehaviour: () => {
-      let beh = this.container.behs["mousePositionInfo"];
-      if (beh && beh.type === "MousePositionOnMove") {
+      let beh = this.container.behs.mousePositionOnMove;
+      if (beh) {
         this.container.removeBehaviour(beh);
         this.container.addBehaviour(MousePositionOnClick);
         this.setState(); // for call render
         return;
       }
 
-      if (beh && beh.type === "MousePositionOnClick") {
+      beh = this.container.behs.mousePositionOnClick;
+      if (beh) {
         this.container.removeBehaviour(beh);
         this.container.addBehaviour(MousePositionOnMove);
         this.setState(); // for call render

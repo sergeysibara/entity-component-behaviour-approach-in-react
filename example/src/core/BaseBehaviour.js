@@ -2,8 +2,8 @@ import lowerFirst from "lodash/lowerFirst";
 
 export default class BaseBehaviour {
   type = Object.getPrototypeOf(this).constructor.name;
-  name = lowerFirst(Object.getPrototypeOf(this).constructor.name);
-  id = Symbol(this.type);
+  name = lowerFirst(this.type);
+  // id = Symbol(this.type);
 
   // passedToRender - data and functions that will be passed in mapToRenderData function
   passedToRender = {};
@@ -11,10 +11,6 @@ export default class BaseBehaviour {
   // instead constructor - for using overrided child fields at initialization
   init(container, props, initData = {}, config) {
     this.container = container;
-    if (initData.name) {
-      this.name = initData.name;
-    }
-
     if (initData.defaultState) {
       this.defaultState = initData.defaultState;
     }
