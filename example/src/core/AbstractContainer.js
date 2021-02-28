@@ -21,7 +21,7 @@ export class AbstractContainer {
 
   init(config, props) {
     this._eventEmitter = new SimpleEventEmitter();
-    this._eventEmitter.init(this);
+    this._eventEmitter.init(this.behaviourArray);
     this._config = config;
 
     this._createBehaviours(props);
@@ -39,7 +39,6 @@ export class AbstractContainer {
 
     this._eventEmitter.callMethodInAllBehaviours(
       LifeCycleEvents.COMPONENT_INITIALIZED,
-      this.behaviourArray,
       [props],
     );
   }
@@ -92,10 +91,7 @@ export class AbstractContainer {
   removeBehaviour(behaviourInstance) {
     const foundIndex = this.behaviourArray.indexOf(behaviourInstance);
     if (foundIndex > -1) {
-      const behaviourWillRemoved = behaviourInstance[LifeCycleEvents.BEHAVIOUR_WILL_REMOVED];
-      if (behaviourWillRemoved) {
-        behaviourWillRemoved.call(behaviourInstance);
-      }
+      this._eventEmitter.callMethodInBehaviour(LifeCycleEvents.BEHAVIOUR_WILL_REMOVED, behaviourInstance);
 
       this._eventEmitter.removeBehaviourMethodsFromEmitter(behaviourInstance.name);
 
@@ -113,7 +109,6 @@ export class AbstractContainer {
   render() {
     // container._eventEmitter.callMethodInAllBehaviours(
     //   LifeCycleEvents.COMPONENT_WILL_RENDER,
-    //   container.behaviourArray,
     // [container.props],
     // );
 

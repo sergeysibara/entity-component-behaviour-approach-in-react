@@ -13,22 +13,22 @@ class ComponentWithContainer extends React.Component {
 
   componentDidMount() {
     this._container.eventEmitter.callMethodInAllBehaviours(
-      LifeCycleEvents.COMPONENT_DID_MOUNT, this.behaviourArray,
+      LifeCycleEvents.COMPONENT_DID_MOUNT,
     );
   }
 
   componentDidUpdate(...args) {
     this._container.eventEmitter.callMethodInAllBehaviours(
-      LifeCycleEvents.COMPONENT_DID_UPDATE, this.behaviourArray, args,
+      LifeCycleEvents.COMPONENT_DID_UPDATE, args,
     );
   }
 
   componentWillUnmount() {
     this._container.eventEmitter.callMethodInAllBehaviours(
-      LifeCycleEvents.BEHAVIOUR_WILL_REMOVED, this.behaviourArray,
+      LifeCycleEvents.BEHAVIOUR_WILL_REMOVED,
     );
     this._container.eventEmitter.callMethodInAllBehaviours(
-      LifeCycleEvents.COMPONENT_WILL_UNMOUNT, this.behaviourArray,
+      LifeCycleEvents.COMPONENT_WILL_UNMOUNT,
     );
   }
 

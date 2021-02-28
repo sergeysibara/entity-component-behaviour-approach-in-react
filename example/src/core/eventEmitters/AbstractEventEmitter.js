@@ -1,12 +1,8 @@
 export class AbstractEventEmitter {
-  _container;
+  _behaviourArray;
 
-  get container() {
-    return this._container;
-  }
-
-  init(container) {
-    this._container = container;
+  init(behaviourArray) {
+    this._behaviourArray = behaviourArray;
   }
 
   callMethodInAllBehaviours(methodName, args = []) {

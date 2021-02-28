@@ -10,8 +10,8 @@ const mapToIsolatedRenderDataObjects = container => {
 
 // Return all behaviours renderData props mixed in single object.
 // Caution! Can use only if you are sure that all component behaviours do not return a fields with same names.
-const mapToMixedRenderData = component => {
-  const behavioursRenderData = mapToIsolatedRenderDataObjects(component);
+const mapToMixedRenderData = container => {
+  const behavioursRenderData = mapToIsolatedRenderDataObjects(container);
   let retRenderData = Object.values(behavioursRenderData).reduce(
     (mixedData, behRenderData) => {
       Object.assign(mixedData, behRenderData);
