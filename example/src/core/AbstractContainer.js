@@ -9,14 +9,14 @@ export class AbstractContainer {
 
   _config;
 
-  // List with all behaviours of component
+  // Array with all behaviours of component
   behaviourArray = [];
 
-  // Object (dictionary) with all behaviours of container. For simplify
+  // Object (dictionary) with all behaviours of container. To simplify
   // access to behaviour by name
   behs = {};
 
-  // Object with pairs: [behaviourName]: behParamsObject
+  // Object (dictionary) with pairs: [behaviourName]: behParamsObject
   behsParams = {};
 
   init(config, props) {
@@ -70,22 +70,13 @@ export class AbstractContainer {
     this.behs[ newBeh.name ] = newBeh;
     this.behsParams[ newBeh.name ] = behaviourParams;
 
-    this._eventEmitter.addBehaviourMethodsToEventsLists(newBeh);
+    this._eventEmitter.addBehaviourMethodsToEmitter(newBeh);
     if (newBeh.init) {
       newBeh.init(this, props, initData, behaviourParams);
     }
 
     this._eventEmitter.callMethodInBehaviour(LifeCycleEvents.BEHAVIOUR_ADDED, newBeh);
     return newBeh;
-  }
-
-  getBehaviourRenderData(behaviour) {
-    const renderData = behaviour.mapToRenderData();
-    const wrapRenderData = this.behsParams[ behaviour.name ].wrapRenderData;
-    if (wrapRenderData) {
-      return wrapRenderData(renderData);
-    }
-    return renderData;
   }
 
   removeBehaviour(behaviourInstance) {
@@ -104,6 +95,15 @@ export class AbstractContainer {
         `removeBehaviour error: ${behaviourInstance.name} not found`
       );
     }
+  }
+
+  getBehaviourRenderData(behaviour) {
+    const renderData = behaviour.mapToRenderData();
+    const wrapRenderData = this.behsParams[ behaviour.name ].wrapRenderData;
+    if (wrapRenderData) {
+      return wrapRenderData(renderData);
+    }
+    return renderData;
   }
 
   render() {

@@ -20,7 +20,7 @@ export class EventEmitterWithDictionaryOfMethodArrays extends AbstractEventEmitt
     });
   };
 
-  addBehaviourMethodsToEventsLists = (newBehaviour) => {
+  addBehaviourMethodsToEmitter = (newBehaviour) => {
     for (const eventName of LifeCycleEventsArray) {
       const behaviourMethod = newBehaviour[ eventName ];
       if (behaviourMethod) {

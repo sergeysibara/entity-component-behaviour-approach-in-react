@@ -17,7 +17,7 @@ export class AbstractEventEmitter {
   }
 
   // Methods only for event emitters that stored subscribers.
-  addBehaviourMethodsToEventsLists() {
+  addBehaviourMethodsToEmitter() {
 
   }
 
