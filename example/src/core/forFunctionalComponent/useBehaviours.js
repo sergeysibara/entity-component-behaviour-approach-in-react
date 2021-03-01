@@ -1,74 +1,18 @@
-import {
-  useRef,
-  useState,
-  useEffect,
-  useLayoutEffect,
-} from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { LifeCycleEvents } from '../LifeCycleEvents';
 import { ContainerForFunctionalComponent } from './ContainerForFunctionalComponent';
 
-const callLifeCycleEvents = (eventEmitter, initialConfig, isFirstRender) => {
-  if (initialConfig.useEffect === true) {
-    // on mount, unmount
-    useEffect(() => {
-      eventEmitter.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_DID_MOUNT);
-      return () => {
-        eventEmitter.callMethodInAllBehaviours(LifeCycleEvents.BEHAVIOUR_WILL_REMOVED);
-        eventEmitter.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_WILL_UNMOUNT);
-      }
-    }, []);
-
-    // on update
-    useEffect(() => {
-      if (!isFirstRender) {
-        eventEmitter.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_DID_UPDATE_EFFECT);
-      }
-    });
-  }
-
-  if (initialConfig.useLayoutEffect === true) {
-    // mount, unmount. Only if useEffect not used
-    if (initialConfig.useEffect === false) {
-      useLayoutEffect(() => {
-        eventEmitter.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_DID_MOUNT);
-        return () => {
-          eventEmitter.callMethodInAllBehaviours(LifeCycleEvents.BEHAVIOUR_WILL_REMOVED);
-          eventEmitter.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_WILL_UNMOUNT);
-        }
-      }, []);
-    }
-
-    // on update
-    useLayoutEffect(() => {
-      if (!isFirstRender) {
-        eventEmitter.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_DID_UPDATE);
-      }
-    });
-  }
-};
-
-const defaultConfig = {
-  behaviours: [],
-  useState: true,
-  useEffect: true,
-  useLayoutEffect: false,
-};
-
-export const useBehaviours = (config, props) =>{
-  const ref = useRef();
-  let state, setState;
+export const useBehaviours = (config = {behaviours: []}, props) =>{
   let isFirstRender = false;
-
-  // get exist or create initialConfig
-  const initialConfig = ref.current
-    ? ref.current.config
-    : { ...defaultConfig, ...config };
+  const ref = useRef();
 
   // create shared state
-  if (initialConfig.useState === true) {
-    [state, setState] = useState({});
-  }
+  let [state, setState] = useState({});
 
+  // get exist or get new initialConfig
+  const initialConfig = ref.current
+    ? ref.current.config
+    : config;
 
   if (!ref.current) {
     ref.current = new ContainerForFunctionalComponent();
@@ -83,4 +27,22 @@ export const useBehaviours = (config, props) =>{
 
   callLifeCycleEvents(container.eventEmitter, initialConfig, isFirstRender);
   return container.render();
+};
+
+const callLifeCycleEvents = (eventEmitter, initialConfig, isFirstRender) => {
+  // on mount, unmount
+  useEffect(() => {
+    eventEmitter.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_DID_MOUNT);
+    return () => {
+      eventEmitter.callMethodInAllBehaviours(LifeCycleEvents.BEHAVIOUR_WILL_REMOVED);
+      eventEmitter.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_WILL_UNMOUNT);
+    }
+  }, []);
+
+  // on update
+  useEffect(() => {
+    if (!isFirstRender) {
+      eventEmitter.callMethodInAllBehaviours(LifeCycleEvents.COMPONENT_DID_UPDATE_EFFECT);
+    }
+  });
 };

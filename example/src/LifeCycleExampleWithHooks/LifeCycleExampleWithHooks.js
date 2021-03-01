@@ -37,7 +37,6 @@ function LifeCycleExampleWithHooksBehaviour() {
     mapToRenderData() {
       const [count, setCount] = useState(0);
       const setCountCallback = useCallback(() => {
-
           setCount(count + 1)
       }, [count]);
 

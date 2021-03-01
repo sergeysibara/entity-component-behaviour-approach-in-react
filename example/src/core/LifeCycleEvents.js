@@ -28,9 +28,3 @@ export const LifeCycleEvents = {
   // static getDerivedStateFromError()
   // componentDidCatch()
 };
-
-export const LifeCycleEventsArray = [];
-
-for (const eventKey in LifeCycleEvents) {
-  LifeCycleEventsArray.push(LifeCycleEvents[ eventKey ])
-}

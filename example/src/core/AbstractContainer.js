@@ -1,7 +1,4 @@
 import { LifeCycleEvents } from './LifeCycleEvents';
-import { mapToMixedRenderData } from './mapToRenderDataStrategies';
-import { EventEmitterWithDictionaryOfMethodArrays }
-  from './eventEmitters/EventEmitterWithDictionaryOfMethodArrays';
 import { SimpleEventEmitter } from './eventEmitters/SimpleEventEmitter';
 
 export class AbstractContainer {
@@ -70,7 +67,6 @@ export class AbstractContainer {
     this.behs[ newBeh.name ] = newBeh;
     this.behsParams[ newBeh.name ] = behaviourParams;
 
-    this._eventEmitter.addBehaviourMethodsToEmitter(newBeh);
     if (newBeh.init) {
       newBeh.init(this, props, initData, behaviourParams);
     }
@@ -84,8 +80,6 @@ export class AbstractContainer {
     if (foundIndex > -1) {
       this._eventEmitter.callMethodInBehaviour(LifeCycleEvents.BEHAVIOUR_WILL_REMOVED, behaviourInstance);
 
-      this._eventEmitter.removeBehaviourMethodsFromEmitter(behaviourInstance.name);
-
       this.behaviourArray.splice(foundIndex, 1);
       delete this.behs[behaviourInstance.name];
       delete this.behsParams[behaviourInstance.name];
@@ -97,34 +91,25 @@ export class AbstractContainer {
     }
   }
 
-  getBehaviourRenderData(behaviour) {
-    const renderData = behaviour.mapToRenderData();
-    const wrapRenderData = this.behsParams[ behaviour.name ].wrapRenderData;
-    if (wrapRenderData) {
-      return wrapRenderData(renderData);
-    }
-    return renderData;
+  // Return all behaviours renderData mixed in single object.
+  // Caution! Can use only if you are sure that all component behaviours do not return a fields with same names.
+  _mapToMixedRenderData() {
+    let retRenderData = this.behaviourArray.reduce((mixedData, beh) => {
+      const behRenderData = beh.mapToRenderData();
+      Object.assign(mixedData, behRenderData);
+      return mixedData;
+    }, {});
+    return retRenderData;
   }
 
   render() {
-    // container._eventEmitter.callMethodInAllBehaviours(
-    //   LifeCycleEvents.COMPONENT_WILL_RENDER,
-    // [container.props],
-    // );
-
-    const mapToRenderData = this.config.mapToRenderData || mapToMixedRenderData;
-
-    // variant for return function to component
     const renderFunc = this.config.render
       ? this.config.render
       : ({ props }) => props?.children;
 
     return renderFunc({
       props: this.props,
-      ...mapToRenderData(this)
+      ...this._mapToMixedRenderData(this)
     });
-
-    // variant for returning data to functional component
-    // return { ...mapToRenderData(container) };
   };
 }

@@ -2,7 +2,6 @@ import { AbstractContainer } from '../AbstractContainer';
 
 export class ContainerForFunctionalComponent extends AbstractContainer {
   _props;
-
   _state;
 
   init(config, props, state, setState) {

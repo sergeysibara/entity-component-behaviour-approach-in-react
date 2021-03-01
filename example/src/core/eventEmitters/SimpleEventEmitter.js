@@ -1,10 +1,21 @@
-import { AbstractEventEmitter } from './AbstractEventEmitter';
+export class SimpleEventEmitter {
+  _behaviourArray;
 
-export class SimpleEventEmitter extends AbstractEventEmitter {
+  init(behaviourArray) {
+    this._behaviourArray = behaviourArray;
+  }
+
+  callMethodInBehaviour(methodName, behaviourInstance, args = []) {
+    const behaviourMethod = behaviourInstance[methodName];
+    if (behaviourMethod) {
+      behaviourMethod.apply(behaviourInstance, args);
+    }
+  }
+
   callMethodInAllBehaviours(methodName, args = []) {
     this._behaviourArray.forEach(beh => {
-      if (beh[ methodName ]) {
-        beh[ methodName ](...args);
+      if (beh[methodName]) {
+        beh[methodName](...args);
       }
     });
   }

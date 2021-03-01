@@ -11,7 +11,7 @@ export class ContainerForClassComponent extends AbstractContainer {
     return this._component.props;
   }
 
-  setState = (stateOrUpdater) =>{
+  setState = (stateOrUpdater) => {
     this._component.setState(stateOrUpdater);
   };
 

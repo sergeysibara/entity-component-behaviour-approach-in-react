@@ -3,7 +3,6 @@ import lowerFirst from "lodash/lowerFirst";
 export class BaseBehaviour {
   type = Object.getPrototypeOf(this).constructor.name;
   name = lowerFirst(this.type);
-  // id = Symbol(this.type);
 
   // passedToRender - data and functions that will be passed in mapToRenderData function
   passedToRender = {};
@@ -31,6 +30,7 @@ export class BaseBehaviour {
   }
 
   /**
+   * stateOrUpdater – like first parameter in setState of class component
    * callback - only for class component
    */
   setState(stateOrUpdater, callback) {
