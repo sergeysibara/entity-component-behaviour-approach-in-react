@@ -18,7 +18,7 @@ import { FormExampleWithHooks }
 import { FormExampleWithBehaviourPropsAndWithHooks }
   from './formAndTwoWayBindingExampleWithHooks/FormExampleWithBehaviourPropsAndWithHooks';
 import { LifeCycleExampleWithHooks }
-  from './LifeCycleExampleWithHooks/LifeCycleExampleWithHooks';
+  from './lifeCycleExampleWithHooks/LifeCycleExampleWithHooks';
 
 const App = () => {
   const [visible, setVisible] = useState(true);

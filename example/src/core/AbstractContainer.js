@@ -16,6 +16,22 @@ export class AbstractContainer {
   // Object (dictionary) with pairs: [behaviourName]: behParamsObject
   behsParams = {};
 
+  get eventEmitter() {
+    return this._eventEmitter;
+  }
+
+  get config() {
+    return this._config;
+  }
+
+  get state() {
+    console.error('container state getter is not implemented');
+  }
+
+  get props() {
+    console.error('container props getter is not implemented');
+  }
+
   init(config, props) {
     this._eventEmitter = new SimpleEventEmitter();
     this._eventEmitter.init(this.behaviourArray);
@@ -38,22 +54,6 @@ export class AbstractContainer {
       LifeCycleEvents.COMPONENT_INITIALIZED,
       [props],
     );
-  }
-
-  get eventEmitter() {
-    return this._eventEmitter;
-  }
-
-  get config() {
-    return this._config;
-  }
-
-  get state() {
-    console.error('container state getter is not implemented');
-  }
-
-  get props() {
-    console.error('container props getter is not implemented');
   }
 
   setState(stateOrUpdater){

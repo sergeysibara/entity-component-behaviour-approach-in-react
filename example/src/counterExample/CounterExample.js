@@ -1,16 +1,16 @@
-import { createComponentWithContainer } from "../core/forClassComponent/createComponentWithContainer";
-import { BaseBehaviour } from "../core/BaseBehaviour";
+import { createComponentWithContainer } from '../core/forClassComponent/createComponentWithContainer';
+import { BaseBehaviour } from '../core/BaseBehaviour';
 
 class CounterBehaviour extends BaseBehaviour {
   defaultState = { count: 0 };
   passedToRender = {
     setCount: value => {
       this.setState({ count: value });
-    }
+    },
   };
 }
 
-export const CounterExample = createComponentWithContainer("CounterExample", {
+export const CounterExample = createComponentWithContainer('CounterExample', {
   behaviours: [{ behaviour: CounterBehaviour }],
   render: ({ count, setCount }) => (
     <>
@@ -18,5 +18,5 @@ export const CounterExample = createComponentWithContainer("CounterExample", {
       <p>You clicked {count} times</p>
       <button onClick={() => setCount(count + 1)}>Click me</button>
     </>
-  )
+  ),
 });
