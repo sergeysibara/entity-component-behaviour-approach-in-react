@@ -2,12 +2,12 @@ import { useRef, useState, useEffect } from 'react';
 import { LifeCycleEvents } from '../LifeCycleEvents';
 import { ContainerForFunctionalComponent } from './ContainerForFunctionalComponent';
 
-export const useBehaviours = (config = {behaviours: []}, props) =>{
+export const useBehaviours = (config = { behaviours: [] }, props) => {
   let isFirstRender = false;
   const ref = useRef();
 
   // create shared state
-  let [state, setState] = useState({});
+  const [state, setState] = useState({});
 
   // get exist or get new initialConfig
   const initialConfig = ref.current
