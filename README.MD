@@ -1,4 +1,4 @@
-Implementation with examples using    
+Implementation with examples:      
 https://codesandbox.io/s/entity-cmponent-in-react-2021-q41y3
 ---
       
