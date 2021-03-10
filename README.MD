@@ -2,7 +2,7 @@ Implementation of Entity Component approach with examples.
 This is simplificated version for publication on habr: https://habr.com/ru/post/545064/  
 
 Full version:  
-https://github.com/sergeysibara/entity-component-behaviour-approach-in-react/tree/use-behaviours
+https://github.com/sergeysibara/entity-component-in-react
 
 https://codesandbox.io/s/entity-cmponent-in-react-2021-q41y3  
 
